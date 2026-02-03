@@ -1,3 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+@import url('https://fonts.cdnfonts.com/css/satoshi');
+@import url('https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+.font-zen-dots{
+  font-family: "Zen Dots", sans-serif;
+}
+
+.font-satoshi{
+  font-family: "Satoshi", sans-serif;
+}
+
+.font-neue-haas-grotesk-display-pro{
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+}
+
+.font-inter{
+  font-family: "Inter", sans-serif;
+}
+
+.font-gilroy-bold{
+  font-family: 'Gilroy-Bold', sans-serif;
+}
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
