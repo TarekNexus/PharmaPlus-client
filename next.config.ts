@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
-import "./env"
+
 const nextConfig: NextConfig = {
-  /* config options here */
+
+ images: {
+  domains: ['i.ibb.co', 'i.ibb.co.com'], // add if URLs really have .com
+}
 };
 
 export default nextConfig;

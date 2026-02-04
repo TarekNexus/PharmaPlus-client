@@ -111,7 +111,7 @@ const NavbarClient = ({ user }: NavbarClientProps) => {
               alt="logo"
               width={175.78}
               height={34.13}
-              
+              className="h-auto w-auto"
             />
           </Link>
         </div>
