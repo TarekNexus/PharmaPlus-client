@@ -41,7 +41,7 @@ export default function Footer() {
                   <FaLocationDot className="w-4 h-4 text-[#FF833B]" />
                 </div>
                 <span className="md:text-lg text-base  font-inter  text-[#F7F2E9]">
-                 123 Medical Plaza, Health District, Dhaka 1207
+                 123/4 Muhammadpur, Dhaka 1207
                 </span>
               </div>
 
