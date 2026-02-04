@@ -26,7 +26,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ModeToggle } from "../ui/ModeToggle";
+
 
 interface NavbarClientProps {
   user?: {
@@ -135,7 +135,7 @@ const NavbarClient = ({ user }: NavbarClientProps) => {
                 </Link>
               </li>
             ))}
-            <ModeToggle></ModeToggle>
+           
           </ul>
         </nav>
       </div>

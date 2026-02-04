@@ -85,10 +85,10 @@ export default function MedicinesSlider() {
   }, [index, paused, visible]);
 
   return (
-    <section className="mx-auto w-11/12 mt-10 rounded-[25px] bg-[#F7F2E9] py-6">
+    <section className="mx-auto w-11/12 mt-10 rounded-[25px] bg-[#FFF7F2] py-6">
       <div className="px-6 sm:px-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <h2 className="text-[25px] sm:text-[35px] md:text-[45px] leading-tight text-balance font-neue-haas-grotesk-display-pro font-medium">
+          <h2 className="text-[25px] text-[#FF7A1A] sm:text-[35px] md:text-[45px] leading-tight text-balance font-neue-haas-grotesk-display-pro font-medium">
             Most Popular Medicines
           </h2>
           <p className="text-slate-700 max-w-[38ch] text-sm sm:text-base text-left md:text-right">
@@ -98,20 +98,22 @@ export default function MedicinesSlider() {
 
         {/* Arrows */}
         <div className="flex items-center justify-end mt-4 gap-2">
-          <button
-            aria-label="Previous"
-            onClick={() => scroll("left")}
-            className="rounded-full backdrop-blur p-2 hover:bg-white/80"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            aria-label="Next"
-            onClick={() => scroll("right")}
-            className="rounded-full backdrop-blur p-2 hover:bg-white/80"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
+        <button
+  aria-label="Previous"
+  onClick={() => scroll("left")}
+  className="rounded-full backdrop-blur p-2 text-[#FF7A1A] hover:bg-[#FF7A1A]/15 transition"
+>
+  <ChevronLeft className="h-4 w-4" />
+</button>
+
+<button
+  aria-label="Next"
+  onClick={() => scroll("right")}
+  className="rounded-full backdrop-blur p-2 text-[#FF7A1A] hover:bg-[#FF7A1A]/15 transition"
+>
+  <ChevronRight className="h-4 w-4" />
+</button>
+
         </div>
 
         {/* Slider */}
@@ -127,7 +129,10 @@ export default function MedicinesSlider() {
                <article
                                   key={`${m.name}-${i}`}
                             data-card
-                            className="group relative shrink-0 overflow-hidden rounded-[22px] ring-1 ring-white/30 snap-start lg:w-113.75 md:w-75.5 w-72.5 h-50 sm:h-65 md:h-65 lg:h-65"
+                            className="group relative shrink-0 overflow-hidden rounded-[22px] snap-start
+lg:w-113.75 md:w-75.5 w-72.5 h-50 sm:h-65 md:h-65 lg:h-65
+ hover:ring-[#FF7A1A]/60 transition-all"
+
                         >
                             <Image
                                src={m.img}
@@ -142,7 +147,7 @@ export default function MedicinesSlider() {
 
                             {/* Icons */}
                             <div className="absolute left-3 top-3 z-10 flex items-center gap-2">
-                                <span className="text-xl sm:text-2xl font-medium opacity-95 text-[#FF833B] font-satoshi">${m.price}</span>
+                                <span className="text-xl sm:text-2xl font-medium opacity-95 text-[#FF7A1A] font-satoshi">${m.price}</span>
                             </div>
 
                             {/* Border + Gradient */}

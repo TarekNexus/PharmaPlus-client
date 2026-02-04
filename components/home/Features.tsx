@@ -63,7 +63,7 @@ export default function Features() {
 
     return (
         <motion.section
-            className="mx-auto w-11/12 mt-10 rounded-[15px] bg-[#211F1A] py-8 sm:py-10 md:py-12"
+            className="mx-auto w-11/12 mt-10 rounded-[15px] bg-[#FF833B] py-8 sm:py-10 md:py-12"
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"

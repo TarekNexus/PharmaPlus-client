@@ -52,7 +52,7 @@ export default function Sticky() {
   const withZ = useMemo(() => items.map((c, i) => ({ ...c, z: 50 - i })), []);
 
   return (
-    <div className="mx-auto w-11/12">
+    <div className="mx-auto w-11/12 mt-5">
       <div className="relative">
         {withZ.map((card, i) => (
           <section
