@@ -1,11 +1,10 @@
-import { env } from "@/env"; // if using env
-// or use process.env.NEXT_PUBLIC_API_URL
+
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const categoryService = {
-  // 🔵 GET all
-  async getAll() {
+
+  async getAllCategory() {
     try {
       const res = await fetch(`${baseUrl}/api/admin/categories`, {
         credentials: "include",
@@ -17,8 +16,8 @@ export const categoryService = {
     }
   },
 
-  // 🟢 CREATE
-  async create(name: string) {
+
+  async createCategory(name: string) {
     try {
       const res = await fetch(`${baseUrl}/api/admin/categories`, {
         method: "POST",
@@ -35,8 +34,7 @@ export const categoryService = {
     }
   },
 
-  // 🟡 UPDATE
-  async update(id: string, name: string) {
+  async updateCategory(id: string, name: string) {
     try {
       const res = await fetch(`${baseUrl}/api/admin/categories/${id}`, {
         method: "PUT",
@@ -54,7 +52,7 @@ export const categoryService = {
   },
 
  
-  async delete(id: string) {
+  async deleteCategory(id: string) {
     try {
       const res = await fetch(`${baseUrl}/api/admin/categories/${id}`, {
         method: "DELETE",

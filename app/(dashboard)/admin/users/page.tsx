@@ -123,7 +123,7 @@ export default function AdminUsersPage() {
                 <thead className="bg-muted/50">
                   <tr>
                     <th className="text-left p-4">User</th>
-                    <th className="text-left p-4">Email</th>
+                    <th className="text-center p-4">Email</th>
                     <th className="text-left p-4">Role</th>
                     <th className="text-left p-4">Status</th>
                     <th className="text-left p-4">Actions</th>
@@ -139,7 +139,7 @@ export default function AdminUsersPage() {
                     filtered.map((user) => (
                       <tr key={user.id} className="border-t">
                         {/* user */}
-                        <td className="p-4 flex items-center gap-3">
+                        <td className="p-4 flex items-center gap-3 ">
                           <Image
                             src={user.image || "/imgs/avatar.png"}
                             alt={user.name}
@@ -156,7 +156,7 @@ export default function AdminUsersPage() {
                         </td>
 
                         {/* email */}
-                        <td className="p-4">{user.email}</td>
+                        <td className="p-4 text-center">{user.email}</td>
 
                         {/* role */}
                         <td className="p-4">

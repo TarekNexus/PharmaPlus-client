@@ -116,8 +116,8 @@ export default function OrdersPage() {
 </div>
        
       ) : (
-        <div className="overflow-x-auto">
-          <Table className="min-w-150 sm:min-w-full">
+        <div className="w-full overflow-x-auto rounded-lg">
+          <Table className="w-full whitespace-nowrap">
             <TableHeader>
               <TableRow>
                 <TableHead>Order NO</TableHead>
@@ -161,7 +161,7 @@ export default function OrdersPage() {
                   </TableCell>
                   <TableCell>{new Date(order.createdAt).toLocaleString()}</TableCell>
                   <TableCell>
-                    <Button size="sm" onClick={() => setSelectedOrder(order)}>
+                    <Button size="sm" className="bg-[#FF833B]" onClick={() => setSelectedOrder(order)}>
                       View Details
                     </Button>
                   </TableCell>

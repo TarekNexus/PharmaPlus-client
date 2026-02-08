@@ -26,7 +26,7 @@ export default function CategoryPage() {
   // fetch
   const fetchCategories = async () => {
     setLoading(true);
-    const res = await categoryService.getAll();
+    const res = await categoryService.getAllCategory();
     if (res?.success) setCategories(res.data);
     setLoading(false);
   };
@@ -40,7 +40,7 @@ export default function CategoryPage() {
   const handleCreate = async () => {
     if (!newCategory.trim()) return;
 
-    const res = await categoryService.create(newCategory);
+    const res = await categoryService.createCategory(newCategory);
 
     if (res?.success) {
       Swal.fire({
@@ -58,7 +58,7 @@ export default function CategoryPage() {
 
   // update
   const handleUpdate = async (id: string) => {
-    const res = await categoryService.update(id, editName);
+    const res = await categoryService.updateCategory(id, editName);
 
     if (res?.success) {
       Swal.fire({
@@ -85,7 +85,7 @@ export default function CategoryPage() {
 
     if (!confirm.isConfirmed) return;
 
-    const res = await categoryService.delete(id);
+    const res = await categoryService.deleteCategory(id);
 
     if (res?.success) {
       Swal.fire("Deleted!", "", "success");
@@ -96,111 +96,113 @@ export default function CategoryPage() {
   };
 
   return (
-    <div className="p-4 space-y-6">
-      <h1 className="text-3xl font-bold">Category Management</h1>
+   <div className="p-4 space-y-6">
+  <h1 className="text-3xl font-bold">Category Management</h1>
 
-      {/* Add category */}
-      <Card>
-        <CardContent className="flex gap-3 p-5">
-          <Input
-            placeholder="Enter category name..."
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
-          />
-          <Button onClick={handleCreate} className="gap-2 bg-[#FF833B]">
-            <Plus size={16} /> Add
-          </Button>
-        </CardContent>
-      </Card>
+  {/* Add category */}
+  <Card>
+    <CardContent className="flex flex-col sm:flex-row gap-3 p-5">
+      <Input
+        placeholder="Enter category name..."
+        value={newCategory}
+        onChange={(e) => setNewCategory(e.target.value)}
+        className="flex-1"
+      />
+      <Button onClick={handleCreate} className="gap-2 bg-[#FF833B] w-full sm:w-auto">
+        <Plus size={16} /> Add
+      </Button>
+    </CardContent>
+  </Card>
 
-      {/* Loader */}
-      {loading ? (
-        <div className="flex justify-center items-center h-[50vh]">
-          <Loader />
-        </div>
-      ) : (
-        <Card>
-          <CardContent className="p-0">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/50">
-                <tr>
-                  <th className="p-4 text-left">#</th>
-                  <th className="p-4 text-left">Category Name</th>
-                  <th className="p-4 text-left">Created</th>
-                  <th className="p-4 text-right">Actions</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {categories.map((cat, i) => (
-                  <tr key={cat.id} className="border-t">
-                    <td className="p-4">{i + 1}</td>
-
-                    {/* name */}
-                    <td className="p-4">
-                      {editingId === cat.id ? (
-                        <Input
-                          value={editName}
-                          onChange={(e) => setEditName(e.target.value)}
-                        />
-                      ) : (
-                        cat.name
-                      )}
-                    </td>
-
-                    {/* date */}
-                    <td className="p-4">
-                      {new Date(cat.createdAt).toLocaleDateString()}
-                    </td>
-
-                    {/* actions */}
-                    <td className="p-4 flex justify-center gap-2">
-                      {editingId === cat.id ? (
-                        <>
-                          <Button
-                            size="sm"
-                            onClick={() => handleUpdate(cat.id)}
-                          >
-                            Save
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => setEditingId(null)}
-                          >
-                            Cancel
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button
-                            size="icon"
-                            variant="outline"
-                            onClick={() => {
-                              setEditingId(cat.id);
-                              setEditName(cat.name);
-                            }}
-                          >
-                            <Pencil size={16} />
-                          </Button>
-
-                          <Button
-                            size="icon"
-                            variant="destructive"
-                            onClick={() => handleDelete(cat.id)}
-                          >
-                            <Trash2 size={16} />
-                          </Button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </CardContent>
-        </Card>
-      )}
+  {/* Loader */}
+  {loading ? (
+    <div className="flex justify-center items-center h-[50vh]">
+      <Loader />
     </div>
+  ) : (
+    <Card>
+      <CardContent className="p-0 overflow-x-auto">
+        <table className="w-full text-sm min-w-125 sm:min-w-full">
+          <thead className="bg-muted/50">
+            <tr>
+              <th className="p-4 text-left">#</th>
+              <th className="p-4 text-left">Category Name</th>
+              <th className="p-4 text-left">Created</th>
+              <th className="p-4 text-right">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {categories.map((cat, i) => (
+              <tr key={cat.id} className="border-t">
+                <td className="p-4">{i + 1}</td>
+
+                {/* name */}
+                <td className="p-4">
+                  {editingId === cat.id ? (
+                    <Input
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                    />
+                  ) : (
+                    cat.name
+                  )}
+                </td>
+
+                {/* date */}
+                <td className="p-4">
+                  {new Date(cat.createdAt).toLocaleDateString()}
+                </td>
+
+                {/* actions */}
+                <td className="p-4 flex flex-wrap justify-center gap-2">
+                  {editingId === cat.id ? (
+                    <>
+                      <Button
+                        size="sm"
+                        onClick={() => handleUpdate(cat.id)}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setEditingId(null)}
+                      >
+                        Cancel
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => {
+                          setEditingId(cat.id);
+                          setEditName(cat.name);
+                        }}
+                      >
+                        <Pencil size={16} />
+                      </Button>
+
+                      <Button
+                        size="icon"
+                        variant="destructive"
+                        onClick={() => handleDelete(cat.id)}
+                      >
+                        <Trash2 size={16} />
+                      </Button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </CardContent>
+    </Card>
+  )}
+</div>
+
   );
 }

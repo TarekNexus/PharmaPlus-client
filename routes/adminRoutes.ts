@@ -7,4 +7,5 @@ export const adminRoutes: Route[] = [
   { href: "/admin/users", label: "Users", icon: Users },
   { href: "/admin/orders", label: "Orders", icon: ShoppingCart },
   { href: "/admin/categories", label: "Categories", icon: FolderTree },
+  { href: "/admin/medicine", label: "Medicine", icon: FolderTree },
 ];
