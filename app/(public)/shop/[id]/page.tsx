@@ -46,7 +46,7 @@ const Page = () => {
       </div>
     );
   }
-console.log("fron web",medicine);
+
   return (
     <section className="w-11/12 mx-auto mt-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl p-8 shadow">
@@ -54,9 +54,7 @@ console.log("fron web",medicine);
         <div className="relative h-87.5 rounded-xl overflow-hidden">
           <Image
             src={
-              medicine.image?.startsWith("http")
-                ? medicine.image
-                : "/" + medicine.image
+              medicine.image
             }
             alt={medicine.name}
             fill

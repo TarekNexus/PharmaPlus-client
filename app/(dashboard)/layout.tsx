@@ -1,4 +1,3 @@
-
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardSidebar from "@/components/dashboard/Sidebar";
 import { userService } from "@/services/user.service";
@@ -10,14 +9,24 @@ interface Props {
 
 export default async function DashboardLayout({ children }: Props) {
   const { data } = await userService.getSession();
-  
+
   return (
-    <div className="flex min-h-screen bg-muted/40">
+    <div className="flex h-screen overflow-hidden bg-muted/40">
+      
+      {/* Sidebar fixed */}
       <DashboardSidebar user={data.user} />
 
-      <div className="flex-1">
+      {/* Right section */}
+      <div className="flex flex-col flex-1 overflow-hidden">
+        
+        {/* Header fixed */}
         <DashboardHeader />
-        <main className="p-6">{children}</main>
+
+        {/* Scrollable content */}
+        <main className="flex-1 overflow-y-auto p-2">
+          {children}
+        </main>
+
       </div>
     </div>
   );
