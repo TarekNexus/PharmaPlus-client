@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { adminUserService } from "@/services/admin.service";
 import Image from "next/image";
+import Loader from "@/components/dashboard/Loader";
 
 interface User {
   id: string;
@@ -52,7 +53,7 @@ export default function AdminUsersPage() {
     const f = users.filter(
       (u) =>
         u.name.toLowerCase().includes(search.toLowerCase()) ||
-        u.email.toLowerCase().includes(search.toLowerCase()),
+        u.email.toLowerCase().includes(search.toLowerCase())
     );
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setFiltered(f);
@@ -109,102 +110,105 @@ export default function AdminUsersPage() {
         />
       </div>
 
-      <Card>
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/50">
-                <tr>
-                  <th className="text-left p-4">User</th>
-                  <th className="text-left p-4">Email</th>
-                  <th className="text-left p-4">Role</th>
-                  <th className="text-left p-4">Status</th>
-                  <th className="text-left p-4">Actions</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {loading ? (
+      {/* 🔥 Loader */}
+      {loading ? (
+        <div className="flex flex-col items-center justify-center h-[60vh] gap-3">
+          <Loader />
+        </div>
+      ) : (
+        <Card>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/50">
                   <tr>
-                    <td className="p-6">Loading users...</td>
+                    <th className="text-left p-4">User</th>
+                    <th className="text-left p-4">Email</th>
+                    <th className="text-left p-4">Role</th>
+                    <th className="text-left p-4">Status</th>
+                    <th className="text-left p-4">Actions</th>
                   </tr>
-                ) : filtered.length === 0 ? (
-                  <tr>
-                    <td className="p-6">No users found</td>
-                  </tr>
-                ) : (
-                  filtered.map((user) => (
-                    <tr key={user.id} className="border-t">
-                      {/* user */}
-                      <td className="p-4 flex items-center gap-3">
-                        <Image
-                          src={user.image || "/imgs/avatar.png"}
-                          alt={user.name}
-                          width={40}
-                          height={40}
-                          className="rounded-full object-cover"
-                        />
-                        <div>
-                          <p className="font-medium">{user.name}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {new Date(user.createdAt).toLocaleDateString()}
-                          </p>
-                        </div>
-                      </td>
+                </thead>
 
-                      {/* email */}
-                      <td className="p-4">{user.email}</td>
-
-                      {/* role change */}
-                      <td className="p-4">
-                        <Select
-                          defaultValue={user.role}
-                          onValueChange={(val) =>
-                            handleRoleChange(user.id, val)
-                          }
-                        >
-                          <SelectTrigger className="w-35">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="ADMIN">ADMIN</SelectItem>
-                            <SelectItem value="SELLER">SELLER</SelectItem>
-                            <SelectItem value="CUSTOMER">CUSTOMER</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </td>
-
-                      {/* status */}
-                      <td className="p-4">
-                        {user.isBanned ? (
-                          <span className="text-red-500 font-medium">
-                            Banned
-                          </span>
-                        ) : (
-                          <span className="text-green-600 font-medium">
-                            Active
-                          </span>
-                        )}
-                      </td>
-
-                      {/* actions */}
-                      <td className="p-4">
-                        <Button
-                          variant={user.isBanned ? "default" : "destructive"}
-                          size="sm"
-                          onClick={() => handleBanToggle(user.id)}
-                        >
-                          {user.isBanned ? "Unban" : "Ban"}
-                        </Button>
-                      </td>
+                <tbody>
+                  {filtered.length === 0 ? (
+                    <tr>
+                      <td className="p-6">No users found</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
+                  ) : (
+                    filtered.map((user) => (
+                      <tr key={user.id} className="border-t">
+                        {/* user */}
+                        <td className="p-4 flex items-center gap-3">
+                          <Image
+                            src={user.image || "/imgs/avatar.png"}
+                            alt={user.name}
+                            width={40}
+                            height={40}
+                            className="rounded-full object-cover"
+                          />
+                          <div>
+                            <p className="font-medium">{user.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {new Date(user.createdAt).toLocaleDateString()}
+                            </p>
+                          </div>
+                        </td>
+
+                        {/* email */}
+                        <td className="p-4">{user.email}</td>
+
+                        {/* role */}
+                        <td className="p-4">
+                          <Select
+                            defaultValue={user.role}
+                            onValueChange={(val) =>
+                              handleRoleChange(user.id, val)
+                            }
+                          >
+                            <SelectTrigger className="w-32">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="ADMIN">ADMIN</SelectItem>
+                              <SelectItem value="SELLER">SELLER</SelectItem>
+                              <SelectItem value="CUSTOMER">CUSTOMER</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </td>
+
+                        {/* status */}
+                        <td className="p-4">
+                          {user.isBanned ? (
+                            <span className="text-red-500 font-medium">
+                              Banned
+                            </span>
+                          ) : (
+                            <span className="text-green-600 font-medium">
+                              Active
+                            </span>
+                          )}
+                        </td>
+
+                        {/* action */}
+                        <td className="p-4">
+                          <Button
+                            variant={user.isBanned ? "default" : "destructive"}
+                            size="sm"
+                            onClick={() => handleBanToggle(user.id)}
+                          >
+                            {user.isBanned ? "Unban" : "Ban"}
+                          </Button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
