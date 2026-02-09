@@ -26,6 +26,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { authClient } from "@/lib/auth-client";
 
 
 interface NavbarClientProps {
@@ -55,16 +56,18 @@ const NavbarClient = ({ user }: NavbarClientProps) => {
     setSelectedIndex(index);
   };
 
-  const handleLogout = async () => {
-    try {
-      // Add your logout API call here
-      // await fetch('/api/auth/logout', { method: 'POST' });
-      router.push("/login");
-      router.refresh();
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
+const handleLogout = async () => {
+  try {
+    // Call authClient to end the session
+    await authClient.signOut();
+
+    // Redirect to login page
+    router.push("/login");
+    router.refresh();
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
 
   const getDashboardPath = () => {
     if (!user) return "/login";
@@ -145,14 +148,7 @@ const NavbarClient = ({ user }: NavbarClientProps) => {
         {user ? (
           <>
             {/* Dashboard Button for logged-in users */}
-            <Link href={getDashboardPath()}>
-              <button className="pl-4 pr-1.5 py-2.5 rounded-full cursor-pointer border border-white text-white bg-[#0000004D] hover:bg-[#00000066] transition-all duration-300 ease-in-out">
-                <span className="text-[15.63px] leading-[150%] tracking-[7%] text-white font-medium flex items-center justify-center gap-3">
-                  Dashboard
-                  <ArrowUpRight className="w-6 h-6 bg-[#FF833B] text-black rounded-full p-1" />
-                </span>
-              </button>
-            </Link>
+          
 
             {/* User Avatar Dropdown */}
             <DropdownMenu>

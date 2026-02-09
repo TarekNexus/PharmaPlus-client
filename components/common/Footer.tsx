@@ -15,7 +15,7 @@ import { motion } from "framer-motion";
 export default function Footer() {
   return (
     <div
-      className="bg-cover md:w-11/12 mx-auto mt-5 bg-[#211F1A] md:rounded-3xl md:mb-2  bg-center py-16 px-0 md:px-2"
+      className="bg-cover md:w-11/12 mx-auto  bg-[#211F1A] md:rounded-3xl md:mb-2  bg-center py-16 px-0 md:px-2"
     >
       <footer className="text-white">
         <div className="lg:px-8 md:px-7 px-4 mx-auto flex flex-col justify-around gap-2 text-sm">
