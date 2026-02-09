@@ -8,8 +8,8 @@ export type MedicineInput = {
   category: {
     id: string;
   };
-  price: number;
-  stock: number;
+  price: string|number;
+  stock: string | number;
   description: string;
   image: string;
   Manufacturer?: string;

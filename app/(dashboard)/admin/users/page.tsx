@@ -98,7 +98,7 @@ export default function AdminUsersPage() {
 
   return (
     <div className="p-2 space-y-6">
-      <h1 className="text-3xl font-bold">Admin User Management</h1>
+      <h1 className="lg:text-3xl md:lg:text-3xl text-2xl font-satoshi font-bold text-[#FF833B] mb-4">Admin User Management</h1>
 
       {/* search */}
       <div className="flex gap-4">
@@ -106,7 +106,7 @@ export default function AdminUsersPage() {
           placeholder="Search by name or email..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="max-w-md"
+          className="max-w-md  font-satoshi "
         />
       </div>
 
@@ -122,18 +122,18 @@ export default function AdminUsersPage() {
               <table className="w-full text-sm">
                 <thead className="bg-muted/50">
                   <tr>
-                    <th className="text-left p-4">User</th>
-                    <th className="text-center p-4">Email</th>
-                    <th className="text-left p-4">Role</th>
-                    <th className="text-left p-4">Status</th>
-                    <th className="text-left p-4">Actions</th>
+                    <th className="text-left p-4  font-satoshi ">User</th>
+                    <th className="text-center p-4  font-satoshi ">Email</th>
+                    <th className="text-left p-4  font-satoshi ">Role</th>
+                    <th className="text-left p-4  font-satoshi ">Status</th>
+                    <th className="text-left p-4  font-satoshi ">Actions</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {filtered.length === 0 ? (
                     <tr>
-                      <td className="p-6">No users found</td>
+                      <td className="p-6  font-satoshi ">No users found</td>
                     </tr>
                   ) : (
                     filtered.map((user) => (
@@ -148,15 +148,15 @@ export default function AdminUsersPage() {
                             className="rounded-full object-cover"
                           />
                           <div>
-                            <p className="font-medium">{user.name}</p>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="font-medium  font-satoshi ">{user.name}</p>
+                            <p className="text-xs  font-satoshi  text-muted-foreground">
                               {new Date(user.createdAt).toLocaleDateString()}
                             </p>
                           </div>
                         </td>
 
                         {/* email */}
-                        <td className="p-4 text-center">{user.email}</td>
+                        <td className="p-4 text-center  font-satoshi ">{user.email}</td>
 
                         {/* role */}
                         <td className="p-4">
@@ -180,11 +180,11 @@ export default function AdminUsersPage() {
                         {/* status */}
                         <td className="p-4">
                           {user.isBanned ? (
-                            <span className="text-red-500 font-medium">
+                            <span className="text-red-500 font-medium  font-satoshi ">
                               Banned
                             </span>
                           ) : (
-                            <span className="text-green-600 font-medium">
+                            <span className="text-green-600 font-medium  font-satoshi ">
                               Active
                             </span>
                           )}

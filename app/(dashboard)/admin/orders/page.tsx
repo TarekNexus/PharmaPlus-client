@@ -22,7 +22,6 @@ import toast from "react-hot-toast";
 
 import Loader from "@/components/dashboard/Loader";
 
-
 // Types
 type Medicine = {
   id: string;
@@ -72,7 +71,7 @@ export default function OrdersPage() {
     try {
       const data = await orderService.getAllOrders();
       setOrders(data);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Failed to fetch orders ❌");
     } finally {
@@ -97,8 +96,8 @@ export default function OrdersPage() {
                 phone: updatedOrder.phone,
                 address: updatedOrder.address,
               }
-            : o
-        )
+            : o,
+        ),
       );
     } else {
       toast.error("Failed to update order ❌");
@@ -107,38 +106,54 @@ export default function OrdersPage() {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-5">Orders Management</h1>
+      <h1 className="lg:text-3xl md:lg:text-3xl text-2xl font-satoshi font-bold text-[#FF833B] mb-4">
+        Orders Management
+      </h1>
 
       {/* Loader */}
       {loading ? (
         <div className="flex justify-center items-center h-60">
-    <Loader></Loader>
-</div>
-       
+          <Loader></Loader>
+        </div>
       ) : (
         <div className="w-full overflow-x-auto rounded-lg">
-          <Table className="w-full whitespace-nowrap">
+          <Table className="w-full whitespace-nowrap border">
             <TableHeader>
-              <TableRow>
-                <TableHead>Order NO</TableHead>
-                <TableHead>Order ID</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Address</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Created At</TableHead>
-                <TableHead>Actions</TableHead>
+              <TableRow className="bg-[#FF833B] text-white">
+                <TableHead className="text-white  font-satoshi ">
+                  Order NO
+                </TableHead>
+                <TableHead className="text-white font-satoshi">
+                  Order ID
+                </TableHead>
+                <TableHead className="text-white font-satoshi">Name</TableHead>
+                <TableHead className="text-white font-satoshi">Phone</TableHead>
+                <TableHead className="text-white font-satoshi">
+                  Address
+                </TableHead>
+                <TableHead className="text-white font-satoshi">
+                  Status
+                </TableHead>
+                <TableHead className="text-white font-satoshi">
+                  Created At
+                </TableHead>
+                <TableHead className="text-white font-satoshi">
+                  Actions
+                </TableHead>
               </TableRow>
             </TableHeader>
 
             <TableBody>
               {orders.map((order, index) => (
                 <TableRow key={order.id}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{order.id}</TableCell>
-                  <TableCell>{order.name}</TableCell>
-                  <TableCell>{order.phone}</TableCell>
-                  <TableCell className="truncate max-w-37.5" title={order.address}>
+                  <TableCell className="font-satoshi">{index + 1}</TableCell>
+                  <TableCell className="font-satoshi">{order.id}</TableCell>
+                  <TableCell className="font-satoshi">{order.name}</TableCell>
+                  <TableCell className="font-satoshi">{order.phone}</TableCell>
+                  <TableCell
+                    className="truncate max-w-37.5 font-satoshi"
+                    title={order.address}
+                  >
                     {order.address}
                   </TableCell>
                   <TableCell>
@@ -147,11 +162,11 @@ export default function OrdersPage() {
                       onValueChange={(val) => handleStatusChange(order.id, val)}
                       disabled={updatingId === order.id}
                     >
-                      <SelectTrigger className="w-32 sm:w-36">
+                      <SelectTrigger className="w-32 sm:w-36 font-satoshi">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="PENDING">PLACED</SelectItem>
+                        <SelectItem value="PLACED">PLACED</SelectItem>
                         <SelectItem value="PROCESSING">PROCESSING</SelectItem>
                         <SelectItem value="SHIPPED">SHIPPED</SelectItem>
                         <SelectItem value="DELIVERED">DELIVERED</SelectItem>
@@ -159,9 +174,15 @@ export default function OrdersPage() {
                       </SelectContent>
                     </Select>
                   </TableCell>
-                  <TableCell>{new Date(order.createdAt).toLocaleString()}</TableCell>
+                  <TableCell className="font-satoshi">
+                    {new Date(order.createdAt).toLocaleString()}
+                  </TableCell>
                   <TableCell>
-                    <Button size="sm" className="bg-[#FF833B]" onClick={() => setSelectedOrder(order)}>
+                    <Button
+                      size="sm"
+                      className="bg-[#FF833B] font-satoshi"
+                      onClick={() => setSelectedOrder(order)}
+                    >
                       View Details
                     </Button>
                   </TableCell>
@@ -175,7 +196,7 @@ export default function OrdersPage() {
       {/* Modal */}
       {selectedOrder && (
         <div className="fixed inset-0 z-50 p-4  flex items-start sm:items-center justify-center bg-black/50 overflow-y-auto">
-          <div className="bg-white dark:bg-gray-900 w-[85vw] sm:w-150 max-h-[90vh] rounded-3xl shadow-lg flex flex-col">
+          <div className="bg-white dark:bg-gray-900 w-[85vw] sm:w-150 max-h-[90vh]  shadow-lg flex flex-col">
             {/* Header */}
             <div className="px-4 sm:px-6 py-2 flex justify-end items-center  dark:border-gray-700 rounded-t-3xl">
               <button
@@ -189,49 +210,78 @@ export default function OrdersPage() {
             {/* Scrollable Body */}
             <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
               {/* Order Info */}
-              <h2 className="text-lg sm:text-xl text-center font-semibold">Order Details</h2>
+              <h2 className="text-lg sm:text-xl text-center font-semibold font-satoshi">
+                Order Details
+              </h2>
               <div className="space-y-2 text-sm">
                 <p>
-                  <span className="font-medium">Status: </span>{selectedOrder.status}
+                  <span className="font-medium font-satoshi">Status: </span>
+                  {selectedOrder.status}
                 </p>
                 <p>
-                  <span className="font-medium">ID: </span>{selectedOrder.id}
+                  <span className="font-medium font-satoshi">ID: </span>
+                  {selectedOrder.id}
                 </p>
                 <p>
-                  <span className="font-medium">OrderAt: </span>{new Date(selectedOrder.createdAt).toLocaleString()}
+                  <span className="font-medium font-satoshi">OrderAt: </span>
+                  {new Date(selectedOrder.createdAt).toLocaleString()}
                 </p>
               </div>
 
               {/* Customer Info */}
               <div className="space-y-2 border-t border-gray-200 dark:border-gray-700 pt-4">
-                <h3 className="font-semibold text-base">Customer Info</h3>
+                <h3 className="font-semibold text-base font-satoshi">
+                  Customer Info
+                </h3>
                 <div className="space-y-2 text-sm">
-                  <p><span className="font-medium">Name:</span> {selectedOrder.name}</p>
-                  <p><span className="font-medium">Phone:</span> {selectedOrder.phone}</p>
-                  <p><span className="font-medium">Address:</span> {selectedOrder.address}</p>
+                  <p>
+                    <span className="font-medium font-satoshi">Name:</span>{" "}
+                    {selectedOrder.name}
+                  </p>
+                  <p>
+                    <span className="font-medium font-satoshi">Phone:</span>{" "}
+                    {selectedOrder.phone}
+                  </p>
+                  <p>
+                    <span className="font-medium font-satoshi">Address:</span>{" "}
+                    {selectedOrder.address}
+                  </p>
                 </div>
               </div>
 
               {/* Items */}
               <div className="space-y-3 border-t border-gray-200 dark:border-gray-700 pt-4">
-                <h3 className="font-semibold text-base">Items ({selectedOrder.items.length})</h3>
+                <h3 className="font-semibold text-base font-satoshi">
+                  Items ({selectedOrder.items.length})
+                </h3>
                 {selectedOrder.items.map((item, index) => (
-                  <div key={item.id} className="border mt-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                  <div
+                    key={item.id}
+                    className="border mt-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-gray-50 dark:bg-gray-800"
+                  >
                     <div className="flex items-start gap-2 mb-2">
-                      <span className="shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 text-xs font-medium flex items-center justify-center">
+                      <span className="shrink-0 w-6 h-6 rounded-full font-satoshi bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 text-xs font-medium flex items-center justify-center">
                         {index + 1}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium">{item.medicine.name}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.medicine.description}</p>
+                        <p className="font-medium font-satoshi">
+                          {item.medicine.name}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          {item.medicine.description}
+                        </p>
                       </div>
                     </div>
                     <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 text-sm">
-                      <div className="flex gap-4 text-gray-600 dark:text-gray-400">
-                        <span>Qty: <strong>{item.quantity}</strong></span>
-                        <span>@ <strong>${item.price.toFixed(2)}</strong></span>
+                      <div className="flex gap-4 text-gray-600 font-satoshi dark:text-gray-400">
+                        <span>
+                          Qty: <strong>{item.quantity}</strong>
+                        </span>
+                        <span>
+                          @ <strong>${item.price.toFixed(2)}</strong>
+                        </span>
                       </div>
-                      <span className="font-semibold text-blue-600 dark:text-blue-400">
+                      <span className="font-semibold font-satoshi text-blue-600 dark:text-blue-400">
                         ${(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -239,17 +289,20 @@ export default function OrdersPage() {
                 ))}
 
                 {/* Total */}
-                <div className="border-t-2 border-gray-300 dark:border-gray-600 pt-3 flex justify-between items-center font-bold text-base sm:text-lg">
+                <div className="border-t-2 font-satoshi border-gray-300 dark:border-gray-600 pt-3 flex justify-between items-center font-bold text-base sm:text-lg">
                   <span>Total Amount:</span>
-                  <span className="text-blue-600 dark:text-blue-400 text-lg sm:text-xl">
-                    ${selectedOrder.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}
+                  <span className="text-blue-600 dark:text-blue-400 text-lg sm:text-xl font-satoshi">
+                    $
+                    {selectedOrder.items
+                      .reduce((sum, i) => sum + i.price * i.quantity, 0)
+                      .toFixed(2)}
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Footer */}
-            <div className="px-4 sm:px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-end bg-white dark:bg-gray-900 shrink-0">
+            <div className="px-4 sm:px-6 py-4 font-satoshi border-t border-gray-200 dark:border-gray-700 flex justify-end bg-white dark:bg-gray-900 shrink-0">
               <Button
                 variant="outline"
                 onClick={() => setSelectedOrder(null)}

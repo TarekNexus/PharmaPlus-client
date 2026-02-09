@@ -29,28 +29,45 @@ export default function DashboardSidebar({ user }: { user: { role: string; image
     default:
       routes = [];
   }
-
+const getDashboardLink = (role: string) => {
+  switch (role) {
+    case "ADMIN":
+      return "/admin";
+    case "SELLER":
+      return "/seller/";
+    case "CUSTOMER":
+      return "/customer";
+    default:
+      return "/";
+  }
+};
   return (
     <aside className="w-16 md:w-56 border-r bg-[#FF833B] p-2 md:p-4 flex flex-col justify-between transition-all">
       {/* Top: Logo & Navigation */}
       <div>
         {/* Logo */}
-        <div className="mb-6 flex items-center justify-center md:justify-start">
-          <Image
-            src="/imgs/smallLogo.png"
-            alt="Pharmaplus"
-            width={40}
-            height={40}
-            className="md:hidden"
-          />
-          <Image
-            src="/imgs/pharmapluse.png"
-            alt="Pharmaplus"
-            width={150}
-            height={40}
-            className="hidden md:block"
-          />
-        </div>
+      <div className="mb-6 flex items-center justify-center md:justify-start">
+  <Link href={getDashboardLink(role)}>
+    <Image
+      src="/imgs/smallLogo.png"
+      alt="Pharmaplus"
+      width={40}
+      height={40}
+      className="md:hidden"
+    />
+  </Link>
+
+  <Link href={getDashboardLink(role)}>
+    <Image
+      src="/imgs/pharmapluse.png"
+      alt="Pharmaplus"
+      width={150}
+      height={40}
+      className="hidden md:block"
+    />
+  </Link>
+</div>
+
 
         {/* Navigation */}
         <nav className="space-y-2">
@@ -67,12 +84,12 @@ export default function DashboardSidebar({ user }: { user: { role: string; image
       </div>
 
       {/* Bottom: User Profile */}
-      <div className="mt-4 flex items-center gap-3 px-3 py-2 bg-white/20 rounded-md hover:bg-white/30 transition-all cursor-pointer">
+      <div className="mb-10 flex items-center gap-3  md:px-2 py-2 bg-white/20 rounded-md hover:bg-white/30 transition-all cursor-pointer">
         <Image
           src={user.image || "/imgs/defaultProfile.png"} // fallback image
           alt={user.name}
-          width={40}
-          height={40}
+          width={50}
+          height={50}
           className="rounded-full object-cover"
         />
         <span className="hidden md:inline text-white font-medium">{user.name}</span>

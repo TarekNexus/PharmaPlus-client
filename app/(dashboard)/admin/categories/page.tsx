@@ -97,7 +97,7 @@ export default function CategoryPage() {
 
   return (
    <div className="p-4 space-y-6">
-  <h1 className="text-3xl font-bold">Category Management</h1>
+  <h1 className="lg:text-3xl md:lg:text-3xl text-2xl font-satoshi font-bold text-[#FF833B] mb-4">Category Management</h1>
 
   {/* Add category */}
   <Card>
@@ -106,9 +106,9 @@ export default function CategoryPage() {
         placeholder="Enter category name..."
         value={newCategory}
         onChange={(e) => setNewCategory(e.target.value)}
-        className="flex-1"
+        className="flex-1 font-satoshi"
       />
-      <Button onClick={handleCreate} className="gap-2 bg-[#FF833B] w-full sm:w-auto">
+      <Button onClick={handleCreate} className="gap-2 bg-[#FF833B] font-satoshi w-full sm:w-auto">
         <Plus size={16} /> Add
       </Button>
     </CardContent>
@@ -123,7 +123,7 @@ export default function CategoryPage() {
     <Card>
       <CardContent className="p-0 overflow-x-auto">
         <table className="w-full text-sm min-w-125 sm:min-w-full">
-          <thead className="bg-muted/50">
+          <thead className="bg-muted/50 font-satoshi">
             <tr>
               <th className="p-4 text-left">#</th>
               <th className="p-4 text-left">Category Name</th>
@@ -132,7 +132,7 @@ export default function CategoryPage() {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="font-satoshi">
             {categories.map((cat, i) => (
               <tr key={cat.id} className="border-t">
                 <td className="p-4">{i + 1}</td>
@@ -160,6 +160,7 @@ export default function CategoryPage() {
                     <>
                       <Button
                         size="sm"
+                        className="bg-[#FF833B]"
                         onClick={() => handleUpdate(cat.id)}
                       >
                         Save
