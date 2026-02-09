@@ -1,4 +1,4 @@
-// components/NavbarClient.tsx
+
 "use client";
 
 import Image from "next/image";
@@ -147,7 +147,7 @@ const handleLogout = async () => {
       <div className="max-lg:hidden flex items-center gap-4">
         {user ? (
           <>
-            {/* Dashboard Button for logged-in users */}
+           
           
 
             {/* User Avatar Dropdown */}
