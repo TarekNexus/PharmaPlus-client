@@ -20,7 +20,7 @@ export default async function DashboardLayout({ children }: Props) {
       <div className="flex flex-col flex-1 overflow-hidden">
         
         {/* Header fixed */}
-        <DashboardHeader />
+        <DashboardHeader user={data.user}/>
 
         {/* Scrollable content */}
         <main className="flex-1 overflow-y-auto p-2">
