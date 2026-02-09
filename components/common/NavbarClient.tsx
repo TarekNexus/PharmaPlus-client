@@ -48,7 +48,7 @@ const NavbarClient = ({ user }: NavbarClientProps) => {
   const links = [
     { href: "/" as const, label: "Home" },
     { href: "/shop" as const, label: "Shop" },
-    { href: "/about" as const, label: "Journal" },
+    { href: "/cart" as const, label: "Cart" },
     { href: "#contact" as const, label: "Contact" },
   ];
 
@@ -126,17 +126,19 @@ const handleLogout = async () => {
           <ul className="flex items-center gap-8">
             {links.map((link, i) => (
               <li key={link.label}>
-                <Link
-                  href={link.href}
-                  onClick={() => handleLinkClick(i)}
-                  className={cn(
-                    "relative text-[15.63px] leading-[150%] tracking-[7%] text-black font-medium after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:size-1.5 after:rounded-full after:bg-transparent after:transition-all after:duration-300 after:ease-in-out font-satoshi",
-                    selectedIndex === i && "after:bg-[#FF833B]"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              </li>
+  <Link
+    href={link.href}
+    onClick={() => handleLinkClick(i)}
+    className={cn(
+      "relative text-[15.63px] leading-[150%] tracking-[7%] text-black font-medium font-satoshi",
+      "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-[#FF833B] after:transition-all after:duration-300 after:ease-in-out",
+      "hover:after:w-full"
+    )}
+  >
+    {link.label}
+  </Link>
+</li>
+
             ))}
            
           </ul>

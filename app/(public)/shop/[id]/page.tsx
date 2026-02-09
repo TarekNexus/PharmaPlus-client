@@ -1,16 +1,21 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { medicineService } from "@/services/medicine.service";
 import { Medicine } from "@/types";
+import { addToCart } from "@/components/order/cart";
+import Loader from "@/components/dashboard/Loader";
+import toast, { Toaster } from "react-hot-toast"; // import react-hot-toast
 
 const Page = () => {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter();
 
   const [medicine, setMedicine] = useState<Medicine | null>(null);
   const [loading, setLoading] = useState(true);
+  const [quantity] = useState(1);
 
   useEffect(() => {
     if (!id) return;
@@ -18,8 +23,6 @@ const Page = () => {
     const fetchMedicine = async () => {
       try {
         const result = await medicineService.getMedicineById(id);
-
-        // your API returns the medicine directly
         setMedicine(result);
       } catch (error) {
         console.error("Error fetching medicine:", error);
@@ -31,31 +34,45 @@ const Page = () => {
     fetchMedicine();
   }, [id]);
 
-  if (loading) {
+  if (loading)
     return (
       <div className="min-h-[60vh] flex items-center justify-center text-gray-500">
-        Loading medicine details...
+        <Loader />
       </div>
     );
-  }
 
-  if (!medicine) {
+  if (!medicine)
     return (
       <div className="min-h-[60vh] flex items-center justify-center text-red-500">
         Medicine not found
       </div>
     );
-  }
+
+  const handleAddToCart = () => {
+    addToCart({
+      medicineId: medicine.id,
+      title: medicine.name,
+      price: medicine.price,
+      image: medicine.image,
+      quantity,
+    });
+
+    // 🔹 Show toast instead of alert
+    toast.success(`${medicine.name} added to cart!`);
+
+    router.push("/cart"); // navigate to cart after adding
+  };
 
   return (
     <section className="w-11/12 mx-auto mt-10">
+      {/* Toaster for showing toast notifications */}
+      <Toaster position="top-right" reverseOrder={false} />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl p-8 shadow">
         {/* Image */}
         <div className="relative h-87.5 rounded-xl overflow-hidden">
           <Image
-            src={
-              medicine.image
-            }
+            src={medicine.image}
             alt={medicine.name}
             fill
             className="object-cover"
@@ -64,42 +81,27 @@ const Page = () => {
 
         {/* Details */}
         <div>
-          <h1 className="text-3xl font-semibold mb-3">
-            {medicine.name}
-          </h1>
-          <h1 className="text-3xl font-semibold mb-3">
-            {medicine.seller?.name}
-            {medicine.seller?.email}
-          </h1>
+          <h1 className="text-3xl font-semibold mb-3">{medicine.name}</h1>
+          <p className="text-gray-600 mb-4">{medicine.description}</p>
 
-          <p className="text-gray-600 mb-4">
-            {medicine.description}
-          </p>
-
-          <div className="space-y-2 text-sm text-gray-700">
+          <div className="space-y-2 text-sm text-gray-700 mb-4">
             <p>
-              <span className="font-medium">Category:</span>{" "}
-              {medicine.category?.name}
+              <span className="font-medium">Category:</span> {medicine.category?.name}
             </p>
             <p>
-              <span className="font-medium">Manufacturer:</span>{" "}
-              {medicine.Manufacturer}
+              <span className="font-medium">Manufacturer:</span> {medicine.Manufacturer}
             </p>
             <p>
-              <span className="font-medium">Stock:</span>{" "}
-              {medicine.stock}
+              <span className="font-medium">Stock:</span> {medicine.stock}
             </p>
           </div>
 
-          <div className="mt-6 flex items-center justify-between">
-            <span className="text-2xl font-bold text-[#FF833B]">
-              ${medicine.price}
-            </span>
-
-            <button className="px-6 py-3 rounded-lg bg-[#FF833B] text-white hover:bg-[#e9722f] transition">
-              Add to Cart
-            </button>
-          </div>
+          <button
+            onClick={handleAddToCart}
+            className="px-6 py-3 rounded-lg bg-[#FF833B] text-white hover:bg-[#e9722f] transition"
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
     </section>

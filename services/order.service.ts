@@ -42,4 +42,34 @@ export const orderService = {
       return null;
     }
   },
+
+
+
+  placeOrder: async (orderData: {
+    items: { medicineId: string; quantity: number }[];
+    address: string;
+    name: string;
+    phone: string;
+  }) => {
+    try {
+      const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/customer/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+        credentials: "include",
+        
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to place order");
+      }
+
+      return result; // success response
+    } catch (error) {
+      console.error("Error placing order:", error);
+      throw error;
+    }
+  },
 };

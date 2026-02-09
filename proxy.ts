@@ -23,6 +23,12 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
+  if (!isAuthenticated && pathname.startsWith("/cart")) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+   if (!isAuthenticated && pathname.startsWith("/checkout")) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
   // * Role-based access control
   if (role === Roles.admin && pathname.startsWith("/customer")) {
     return NextResponse.redirect(new URL("/admin", request.url));
@@ -59,5 +65,7 @@ export const config = {
     "/admin/:path*",
     "/seller",
     "/seller/:path*",
+    "/cart",
+    "/checkout"
   ],
 };
