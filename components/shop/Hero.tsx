@@ -23,22 +23,22 @@ const Hero = () => {
 
       {/* Content */}
       <motion.div
-        className="relative z-10 text-center max-w-4xl px-4"
+        className="relative z-10 text-center max-w-6xl px-4"
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1.1, ease: "easeOut" }}
       >
         <motion.h1
-          className="text-3xl font-neue sm:text-4xl md:text-5xl lg:text-[62px] font-medium text-white leading-snug"
+          className="text-3xl sm:text-4xl  md:text-5xl lg:text-[52px] font-satoshi font-medium text-white leading-snug"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
         >
-          Your Health, <br /> Delivered to Your Door
+          Your Health, Delivered to Your Door
         </motion.h1>
 
         <motion.p
-          className="text-base sm:text-lg md:text-xl lg:text-[22px] text-gray-200 mt-2"
+          className="text-base sm:text-lg md:text-xl lg:text-[22px] font-satoshi text-gray-200 mt-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
