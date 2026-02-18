@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
-
+import { Eye, EyeOff } from "lucide-react";
 type FormValues = {
   email: string;
   password: string;
@@ -20,7 +20,9 @@ export default function LoginPage() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>();
 const [googleLoading, setGoogleLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
+   
     const loginToast = toast.loading("Logging in...");
     try {
       const { data, error } = await authClient.signIn.email(values);
@@ -108,22 +110,32 @@ const handleGoogleLogin = async () => {
           </div>
 
           {/* Password */}
-          <div className="flex flex-col">
-            <label className="text-gray-700 font-inter mb-1">Password</label>
-            <input
-              type="password"
-              placeholder="********"
-              disabled={isSubmitting}
-              {...register("password", {
-                required: "Password is required",
-                minLength: { value: 6, message: "Password must be at least 6 characters" },
-              })}
-              className={`border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:border-[#FF833B] ${
-                errors.password ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-[#FF833B]"
-              }`}
-            />
-            {errors.password && <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>}
-          </div>
+         <div className="flex flex-col relative">
+      <label className="text-gray-700 font-inter mb-1">Password</label>
+      <input
+        type={showPassword ? "text" : "password"}
+        placeholder="********"
+        disabled={isSubmitting}
+        {...register("password", {
+          required: "Password is required",
+          minLength: { value: 6, message: "Password must be at least 6 characters" },
+        })}
+        className={`border px-4 py-2 rounded-lg w-full focus:outline-none focus:ring-2 pr-10 ${
+          errors.password ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-[#FF833B]"
+        }`}
+      />
+      {/* Show/Hide Password Icon */}
+      <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute right-3 top-9 text-gray-400"
+      >
+        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+      </button>
+      {errors.password && (
+        <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>
+      )}
+    </div>
 
           <button
             type="submit"
