@@ -1,36 +1,164 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PharmaPlus 💊
+**"Your Trusted Online Medicine Shop"**
 
-## Getting Started
+---
 
-First, run the development server:
+## Project Overview
+PharmaPlus is a full-stack e-commerce web application designed for purchasing over-the-counter (OTC) medicines. Customers can browse medicines, add them to their cart, and place orders. Sellers manage their medicine inventory and fulfill orders, while admins oversee the platform and manage all users and listings.
+
+---
+
+## Roles & Permissions
+
+| Role     | Description                     | Key Permissions                                           |
+|---------|---------------------------------|----------------------------------------------------------|
+| Customer | Users who purchase medicines    | Browse, add to cart, place orders, track status, leave reviews |
+| Seller   | Medicine vendors / pharmacies   | Manage inventory, view orders, update order status      |
+| Admin    | Platform moderators             | Manage all inventory, users, oversee orders            |
+
+
+
+---
+
+## Tech Stack
+- **Frontend:** React, Next.js, Tailwind CSS, shadcn
+- **Backend:** Node.js, Express.js, PostgresSQL,Prisma
+- **Database:** MongoDB
+- **Authentication:** JWT, bcrypt
+- **Payment:** Cash on Delivery (COD)
+- **Other Tools:** React Hot Toast, Framer Motion, Lucide Icons
+
+---
+
+## Features
+
+### Public Features
+- Browse all available medicines
+- Search and filter by category, price, manufacturer
+- View detailed medicine information
+
+### Customer Features
+- Register and login as a customer
+- Add medicines to cart
+- Place orders with shipping address (Cash on Delivery)
+- Track order status
+- Leave reviews after ordering
+- Manage user profile
+
+### Seller Features
+- Register and login as a seller
+- Add, edit, and remove medicines
+- Manage stock levels
+- View incoming orders
+- Update order status
+
+### Admin Features
+- View all users (customers and sellers)
+- Manage user status (ban/unban)
+- View all medicines and orders
+- Manage categories
+
+---
+
+## Pages & Routes
+
+### Public Routes
+| Route         | Page             | Description                  |
+|---------------|-----------------|------------------------------|
+| `/`           | Home            | Hero section, categories, featured medicines |
+| `/shop`       | Shop            | Browse all medicines with filters |
+| `/shop/:id`   | Medicine Details| View detailed info, add to cart |
+| `/login`      | Login           | Login form                  |
+| `/register`   | Register        | Registration form           |
+
+### Customer Routes (Private)
+| Route         | Page             | Description                  |
+|---------------|-----------------|------------------------------|
+| `/cart`       | Cart             | View cart items             |
+| `/checkout`   | Checkout         | Shipping address            |
+| `/orders`     | My Orders        | Order history               |
+| `/orders/:id` | Order Details    | View items, status          |
+| `/profile`    | Profile          | Edit user info              |
+
+### Seller Routes (Private)
+| Route                 | Page       | Description                 |
+|-----------------------|-----------|-----------------------------|
+| `/seller/dashboard`   | Dashboard | Orders overview, stats      |
+| `/seller/medicines`   | Inventory | Manage medicines            |
+| `/seller/orders`      | Orders    | Update order status         |
+
+### Admin Routes (Private)
+| Route                  | Page       | Description                |
+|------------------------|-----------|----------------------------|
+| `/admin`               | Dashboard | Platform statistics         |
+| `/admin/users`         | Users     | Manage users               |
+| `/admin/orders`        | Orders    | View all orders            |
+| `/admin/categories`    | Categories| Manage categories          |
+
+---
+
+## Database Tables
+- **Users:** Store user information and authentication details
+- **Categories:** Medicine categories
+- **Medicines:** Product inventory (linked to seller)
+- **Orders:** Customer orders with items and status
+- **Reviews:** Customer reviews for medicines
+
+💡 **Note:** Design fields according to feature requirements.
+
+---
+
+## API Endpoints
+
+### Authentication
+| Method | Endpoint             | Description           |
+|--------|---------------------|---------------------|
+| POST   | `/api/auth/register` | Register new user   |
+| POST   | `/api/auth/login`    | Login user          |
+| GET    | `/api/auth/me`       | Get current user    |
+
+### Medicines (Public)
+| Method | Endpoint             | Description                  |
+|--------|---------------------|------------------------------|
+| GET    | `/api/medicines`    | Get all medicines with filters |
+| GET    | `/api/medicines/:id`| Get medicine details         |
+| GET    | `/api/categories`   | Get all categories           |
+
+### Orders
+| Method | Endpoint             | Description                  |
+|--------|---------------------|------------------------------|
+| POST   | `/api/orders`        | Create new order             |
+| GET    | `/api/orders`        | Get user's orders            |
+| GET    | `/api/orders/:id`    | Get order details            |
+
+### Seller Management
+| Method | Endpoint                     | Description             |
+|--------|------------------------------|------------------------|
+| POST   | `/api/seller/medicines`      | Add medicine           |
+| PUT    | `/api/seller/medicines/:id`  | Update medicine        |
+| DELETE | `/api/seller/medicines/:id`  | Remove medicine        |
+| GET    | `/api/seller/orders`          | Get seller's orders    |
+| PATCH  | `/api/seller/orders/:id`      | Update order status    |
+
+### Admin
+| Method | Endpoint                     | Description             |
+|--------|------------------------------|------------------------|
+| GET    | `/api/admin/users`           | Get all users           |
+| PATCH  | `/api/admin/users/:id`       | Update user status      |
+
+---
+
+## Installation & Setup
 
 ```bash
+# Clone the repository
+git clone <https://github.com/TarekNexus/PharmaPlus-client>
+cd PharmaPlus-client
+
+# Install dependencies
+npm install
+
+#create a .env 
+them follow .example.env
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
