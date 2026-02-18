@@ -97,7 +97,7 @@ export default function RegisterPage() {
       toast.loading("Redirecting to Google...");
       const data = await authClient.signIn.social({
         provider: "google",
-        callbackURL: "https://pharma-plus-client.vercel.app",
+        callbackURL: "http://localhost:3000",
       });
       console.log(data);
     } catch (err) {
