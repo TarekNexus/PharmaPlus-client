@@ -104,7 +104,7 @@ PharmaPlus is a full-stack e-commerce web application designed for purchasing ov
 - **Orders:** Customer orders with items and status
 - **Reviews:** Customer reviews for medicines
 
-💡 **Note:** Design fields according to feature requirements.
+
 
 ---
 
