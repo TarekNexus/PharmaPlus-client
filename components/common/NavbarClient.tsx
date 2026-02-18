@@ -49,7 +49,7 @@ const NavbarClient = ({ user }: NavbarClientProps) => {
     { href: "/" as const, label: "Home" },
     { href: "/shop" as const, label: "Shop" },
     { href: "/cart" as const, label: "Cart" },
-    { href: "#contact" as const, label: "Contact" },
+    { href: "/contact" as const, label: "Contact" },
   ];
 
   const handleLinkClick = (index: number) => {

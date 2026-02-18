@@ -141,7 +141,7 @@ updateMedicine: async (id: string, medicineData: MedicineInput) => {
   deleteMedicine: async (id: string) => {
     try {
       const response = await fetch(
-        `${NEXT_PUBLIC_API_URL}/api/seller/medicines/${id}`,
+        `${NEXT_PUBLIC_API_URL}/api/medicine/${id}`,
         {
           method: "DELETE",
           credentials: "include",

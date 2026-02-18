@@ -110,8 +110,7 @@ export default function Footer() {
                   {[
                     { name: "Home", href: "/" },
                     { name: "Shop", href: "/shop" },
-                    { name: "About Us", href: "/about" },
-                    { name: "Contact", href: "#contact" },
+                    { name: "Contact", href: "/contact" },
                   ].map((link) => (
                     <Link key={link.name} href={link.href}>
                       <motion.h1
@@ -152,7 +151,7 @@ export default function Footer() {
           <div className="mt-10 border-t border-[#FFFFFF33] pt-5 flex flex-col md:flex-row items-center justify-between text-xs text-gray-200 gap-4">
             {/* Left */}
             <div className="flex-1 text-center md:text-left font-gilroy-regular">
-              <p><a href="#"><span className="text-white font-bold font-gilroy-regular">@2025 PHARMA PLUS.</span></a> All rights reserved</p>
+              <p><span className="text-white font-bold font-gilroy-regular">@2025 PHARMA PLUS.</span> All rights reserved</p>
             </div>
 
             {/* Center */}
@@ -170,11 +169,11 @@ export default function Footer() {
 
             {/* Right */}
             <div className="flex-1 flex justify-center md:justify-end gap-4">
-              <Link href="#" className="underline text-[16px]">
+              <Link href="/" className="underline text-[16px]">
                 Terms of Use
               </Link>
               <span>|</span>
-              <Link href="#" className="underline text-[16px]">
+              <Link href="/" className="underline text-[16px]">
                 Privacy Policy
               </Link>
             </div>
