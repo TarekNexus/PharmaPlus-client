@@ -23,7 +23,7 @@ export const sellerService = {
         credentials: "include",
       });
       const data = await response.json();
-      console.log(data);
+    
       return data;
     } catch (error) {
       console.error("Error fetching medicines:", error);
@@ -58,7 +58,7 @@ export const sellerService = {
       if (!result.success) {
         throw new Error(result.message);
       }
-      console.log(result.data);
+    
       return result.data; // ✅ return ONLY medicine object
     } catch (error) {
       console.error(`Error fetching medicine with id ${id}:`, error);
@@ -129,7 +129,7 @@ updateMedicineSeller: async (id: string, medicineData: MedicineInput) => {
       throw new Error(result.message || "Failed to update medicine");
     }
 
-    console.log("Medicine updated successfully:", result);
+   
     return result;
   } catch (error) {
     console.error(`Error updating medicine with id ${id}:`, error);
