@@ -5,7 +5,7 @@ import Hero from "@/components/order/Hero";
 import {  ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 type CartItem = {
@@ -17,10 +17,14 @@ type CartItem = {
 };
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
     const storedCart = localStorage.getItem("cart");
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
+    setCartItems(storedCart ? JSON.parse(storedCart) : []);
+    setMounted(true);
+  }, []);
 
   const updateLocalStorage = (items: CartItem[]) => {
     setCartItems(items);

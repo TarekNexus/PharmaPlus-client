@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -70,7 +71,7 @@ export default function CategoryPage() {
       setEditingId(null);
       fetchCategories();
     } else {
-      Swal.fire("Error", "Update failed", "error");
+      Swal.fire("Error", "Update failed",  "error");
     }
   };
 

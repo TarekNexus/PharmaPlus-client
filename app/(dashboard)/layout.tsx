@@ -3,6 +3,8 @@ import DashboardSidebar from "@/components/dashboard/Sidebar";
 import { userService } from "@/services/user.service";
 import { ReactNode } from "react";
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   children: ReactNode;
 }
