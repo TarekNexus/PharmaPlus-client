@@ -51,7 +51,7 @@ const handleGoogleLogin = async () => {
     const data = await authClient.signIn.social({
       provider: "google",
       // callbackURL: "http://localhost:3000",
-      callbackURL: "https://pharma-plus-client.vercel.app",
+      callbackURL: "https://pharma-plus-one.vercel.app/api/auth/callback/google",
     });
     console.log(data);
     toast.dismiss(googleToast);
