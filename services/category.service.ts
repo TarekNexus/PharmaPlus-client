@@ -1,13 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 const baseUrl= process.env.NEXT_PUBLIC_API_URL 
 
 export const categoryService = {
 
-  async getAllCategory() {
+  async getAllCategory(cookieStore: any) {
     try {
       const res = await fetch(`${baseUrl}/api/admin/categories`, {
-        credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: cookieStore.toString(),
+          },
       });
       return await res.json();
     } catch (err) {
@@ -17,14 +21,15 @@ export const categoryService = {
   },
 
 
-  async createCategory(name: string) {
+  async createCategory(name: string,cookieStore: any) {
     try {
       const res = await fetch(`${baseUrl}/api/admin/categories`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: cookieStore.toString(),
+          },
+       
         body: JSON.stringify({ name }),
       });
       return await res.json();
@@ -34,14 +39,15 @@ export const categoryService = {
     }
   },
 
-  async updateCategory(id: string, name: string) {
+  async updateCategory(id: string, name: string,cookieStore: any) {
     try {
       const res = await fetch(`${baseUrl}/api/admin/categories/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
         },
-        credentials: "include",
+        
         body: JSON.stringify({ name }),
       });
       return await res.json();
@@ -52,11 +58,14 @@ export const categoryService = {
   },
 
  
-  async deleteCategory(id: string) {
+  async deleteCategory(id: string,cookieStore: any) {
     try {
       const res = await fetch(`${baseUrl}/api/admin/categories/${id}`, {
         method: "DELETE",
-        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
       });
       return await res.json();
     } catch (err) {

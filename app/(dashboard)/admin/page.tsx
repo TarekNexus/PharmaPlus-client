@@ -17,7 +17,7 @@ import {
 import Loader from "@/components/dashboard/Loader";
 
 import { orderService } from "@/services/order.service";
-import { categoryService } from "@/services/category.service";
+
 
 
 import {
@@ -31,6 +31,7 @@ import {
 } from "recharts";
 
 import { getAllUsers } from "@/action/admin/getAllUsers";
+import { getAllCategory } from "@/action/category/getAllCategory";
 
 export default function AdminDashboard() {
   const [customersCount, setCustomersCount] = useState<number>(0);
@@ -53,7 +54,7 @@ export default function AdminDashboard() {
         await Promise.all([
           getAllUsers(),
           orderService.getAllOrders(),
-          categoryService.getAllCategory(),
+          getAllCategory(),
           medicineService.getAllMedicines(),
         ]);
 

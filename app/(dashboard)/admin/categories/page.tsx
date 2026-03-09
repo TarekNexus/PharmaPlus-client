@@ -3,13 +3,17 @@
 
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { categoryService } from "@/services/category.service";
+
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Loader from "@/components/dashboard/Loader";
 import { Pencil, Trash2, Plus } from "lucide-react";
+import { getAllCategory } from "@/action/category/getAllCategory";
+import { createCategory } from "@/action/category/createCategory";
+import { updateCategory } from "@/action/category/updateCategory";
+import { deleteCategory } from "@/action/category/deleteCategory";
 
 interface Category {
   id: string;
@@ -27,7 +31,7 @@ export default function CategoryPage() {
   // fetch
   const fetchCategories = async () => {
     setLoading(true);
-    const res = await categoryService.getAllCategory();
+    const res = await getAllCategory();
     if (res?.success) setCategories(res.data);
     setLoading(false);
   };
@@ -41,7 +45,7 @@ export default function CategoryPage() {
   const handleCreate = async () => {
     if (!newCategory.trim()) return;
 
-    const res = await categoryService.createCategory(newCategory);
+    const res = await createCategory(newCategory);
 
     if (res?.success) {
       Swal.fire({
@@ -59,7 +63,7 @@ export default function CategoryPage() {
 
   // update
   const handleUpdate = async (id: string) => {
-    const res = await categoryService.updateCategory(id, editName);
+    const res = await updateCategory(id, editName);
 
     if (res?.success) {
       Swal.fire({
@@ -86,7 +90,7 @@ export default function CategoryPage() {
 
     if (!confirm.isConfirmed) return;
 
-    const res = await categoryService.deleteCategory(id);
+    const res = await deleteCategory(id);
 
     if (res?.success) {
       Swal.fire("Deleted!", "", "success");
