@@ -36,7 +36,8 @@ export default function AdminUsersPage() {
 
   const fetchUsers = async () => {
     setLoading(true);
-    const res = await adminAction.getAdminData()
+    const res = await adminAction()
+    console.log(res);
     if (res.success) {
       setUsers(res.data);
       setFiltered(res.data);

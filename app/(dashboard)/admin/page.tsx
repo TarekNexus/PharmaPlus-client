@@ -50,7 +50,7 @@ export default function AdminDashboard() {
     try {
       const [usersRes, ordersRes, categoriesRes, medicinesRes] =
         await Promise.all([
-          adminAction.getAdminData(),
+          adminAction(),
           orderService.getAllOrders(),
           categoryService.getAllCategory(),
           medicineService.getAllMedicines(),
