@@ -6,7 +6,7 @@ import {  ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 type CartItem = {
   id: string;
@@ -65,7 +65,7 @@ export default function Cart() {
   return (
     <div className="bg-white">
       <Hero />
-
+<Toaster position="top-right" reverseOrder={false} />
       {/* Header */}
       <div className="text-center mb-12 px-4 sm:px-6 md:px-8">
         <h1 className="text-4xl font-satoshi sm:text-5xl lg:text-5xl font-bold mb-4 text-[#FF833B]">
