@@ -40,6 +40,11 @@ import Loader from "@/components/dashboard/Loader";
 import Image from "next/image";
 import { Medicine } from "@/types";
 import { MedicineInput, sellerService } from "@/services/seller.service";
+import { getAllMedicinesbySeller } from "@/action/seller/getAllMedicinesbySeller";
+import { getAllCategories } from "@/action/seller/getAllCategories";
+import { createMedicineSeller } from "@/action/seller/createMedicineSeller";
+import { updateMedicineSeller } from "@/action/seller/updateMedicineSeller";
+import { deleteMedicineSeller } from "@/action/seller/deleteMedicineSeller";
 
 type Category = {
   id: string;
@@ -87,8 +92,8 @@ export default function MedicinesPage() {
     setLoading(true);
     try {
       const [medicinesRes, categoriesData] = await Promise.all([
-        sellerService.getAllMedicinesbySeller(),
-         sellerService.getAllCategories(),
+        getAllMedicinesbySeller(),
+         getAllCategories(),
       ]);
       setMedicines(medicinesRes.data || []);
       setCategories(categoriesData);
@@ -147,7 +152,7 @@ export default function MedicinesPage() {
 
     setSubmitting(true);
     try {
-      await sellerService.createMedicineSeller({ ...formData, price, stock });
+      await createMedicineSeller({ ...formData, price, stock });
       toast.success("Medicine added successfully ");
       setIsAddDialogOpen(false);
       resetForm();
@@ -172,7 +177,7 @@ export default function MedicinesPage() {
 
     setSubmitting(true);
     try {
-      await sellerService.updateMedicineSeller(selectedMedicine.id, {
+      await updateMedicineSeller(selectedMedicine.id, {
         ...formData,
         price,
         stock,
@@ -194,7 +199,7 @@ export default function MedicinesPage() {
 
     setSubmitting(true);
     try {
-      await sellerService.deleteMedicineSeller(selectedMedicine.id);
+      await deleteMedicineSeller(selectedMedicine.id);
       toast.success("Medicine deleted successfully ");
       setIsDeleteDialogOpen(false);
       setSelectedMedicine(null);

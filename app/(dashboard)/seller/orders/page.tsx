@@ -21,8 +21,8 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 
 import Loader from "@/components/dashboard/Loader";
-import { sellerService } from "@/services/seller.service";
 import { updateOrderStatus } from "@/action/order/updateOrderStatus";
+import { getAllOrdersSeller } from "@/action/seller/getAllOrdersSeller";
 
 // Types
 type Medicine = {
@@ -71,7 +71,7 @@ export default function OrdersPage() {
   const fetchOrders = async () => {
     setLoading(true); // show loader
     try {
-      const data = await sellerService.getAllOrdersSeller();
+      const data = await getAllOrdersSeller();
       setOrders(data);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

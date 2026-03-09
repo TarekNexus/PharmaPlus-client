@@ -1,19 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const ProfileService = {
   getCurrentUser,
 };
 
-export async function getCurrentUser() {
+export async function getCurrentUser(cookieStore: any) {
   try {
     const response = await fetch(`${BASE_URL}/api/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Add Authorization if needed, e.g.
-        // "Authorization": `Bearer ${token}`,
+        Cookie: cookieStore.toString(),
       },
-      credentials: "include", // send cookies if your backend uses them
+  
     });
 
     if (!response.ok) {
@@ -23,7 +23,7 @@ export async function getCurrentUser() {
 
     const data = await response.json();
     return data; // { success, message, data: {...} }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
   } catch (error: any) {
     console.error("Error fetching user:", error.message);
     throw error;

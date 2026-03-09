@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-import { reviewService, Review } from "@/services/review.service";
+
 import { Medicine } from "@/types";
 import { addToCart } from "@/components/order/cart";
 import Loader from "@/components/dashboard/Loader";
@@ -13,6 +13,9 @@ import toast, { Toaster } from "react-hot-toast";
 import Hero from "@/components/shop/Hero";
 import FaqSection from "@/components/home/FAQSection";
 import { getMedicineById } from "@/action/medicine/getMedicineById";
+import { getReviewsByMedicine } from "@/action/review/getReviewsByMedicine";
+import { addReview } from "@/action/review/addReview";
+import { Review } from "@/services/review.service";
 
 const Page = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,8 +42,10 @@ const Page = () => {
         const med = await getMedicineById(id);
         setMedicine(med);
 
-        const reviewData = await reviewService.getReviewsByMedicine(id);
-        setReviews(reviewData);
+        const reviewData = await getReviewsByMedicine(id);
+        if (Array.isArray(reviewData)) {
+          setReviews(reviewData);
+        }
       } catch (error) {
         console.error("Error:", error);
       } finally {
@@ -86,15 +91,17 @@ const Page = () => {
     try {
       setReviewLoading(true);
 
-      await reviewService.addReview({
+      await addReview({
         medicineId: medicine.id,
         rating,
         comment,
       });
 
       // reload all reviews
-      const updated = await reviewService.getReviewsByMedicine(medicine.id);
-      setReviews(updated);
+      const updated = await getReviewsByMedicine(medicine.id);
+      if (Array.isArray(updated)) {
+        setReviews(updated);
+      }
 
       setComment("");
       setRating(5);

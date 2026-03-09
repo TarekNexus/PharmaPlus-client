@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { sellerService } from "@/services/seller.service";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -17,6 +17,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { ShoppingCart, Pill, UserCheck, UserMinus } from "lucide-react";
+import { getAllOrdersSeller } from "@/action/seller/getAllOrdersSeller";
+import { getAllMedicinesbySeller } from "@/action/seller/getAllMedicinesbySeller";
 
 export default function SellerDashboardPage() {
   const router = useRouter();
@@ -39,8 +41,8 @@ export default function SellerDashboardPage() {
   const fetchDashboardStats = async () => {
     setLoading(true);
     try {
-      const orders = await sellerService.getAllOrdersSeller();
-      const medicines = await sellerService.getAllMedicinesbySeller();
+      const orders = await getAllOrdersSeller();
+      const medicines = await getAllMedicinesbySeller();
 
       // Count order statuses
       const placed = orders.filter((o: any) => o.status === "PLACED").length;
