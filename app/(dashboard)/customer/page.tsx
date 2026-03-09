@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { customerService } from "@/services/customer.service";
 import { Loader2, X } from "lucide-react";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import { getMyOrders } from "@/action/customer/getMyOrders";
+import { cancelOrder } from "@/action/customer/cancelOrder";
 
 interface Medicine {
   id: string;
@@ -41,7 +42,7 @@ export default function OrdersPage() {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const res = await customerService.getMyOrders();
+      const res = await getMyOrders();
       if (res.success) setOrders(res.data);
       else console.error("Failed to fetch orders");
       setLoading(false);
@@ -53,7 +54,7 @@ export default function OrdersPage() {
     if (!confirm("Are you sure you want to cancel this order?")) return;
 
     setCancelingOrderId(orderId);
-    const res = await customerService.cancelOrder(orderId);
+    const res = await cancelOrder(orderId);
     setCancelingOrderId(null);
 
     if (res.success) {

@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const customerService = {
   // 🔹 Get customer profile
- async getProfile() {
+ async getProfile(cookieStore: any) {
     try {
       const res = await fetch(`${baseUrl}/api/customer/profile`, {
-        credentials: "include",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
       });
       return await res.json();
     } catch (err) {
@@ -16,14 +19,14 @@ export const customerService = {
   },
 
   // 🔹 Update customer profile (PATCH)
-  async updateProfile(profileData: { name?: string; email?: string; image?: string }) {
+  async updateProfile(profileData: { name?: string; email?: string; image?: string }, cookieStore: any) {
     try {
       const res = await fetch(`${baseUrl}/api/customer/profile`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Cookie: cookieStore.toString()
         },
-        credentials: "include",
         body: JSON.stringify(profileData),
       });
       return await res.json();
@@ -34,10 +37,12 @@ export const customerService = {
   },
 
   // 🔹 Get all orders of the customer
-  async getMyOrders() {
+  async getMyOrders(cookieStore: any) {
     try {
       const res = await fetch(`${baseUrl}/api/customer/orders`, {
-        credentials: "include",
+          headers: {
+          Cookie: cookieStore.toString(),
+        },
       });
       return await res.json();
     } catch (err) {
@@ -47,11 +52,14 @@ export const customerService = {
   },
 
   // 🔹 Cancel an order
-  async cancelOrder(orderId: string) {
+  async cancelOrder(orderId: string, cookieStore: any) {
     try {
       const res = await fetch(`${baseUrl}/api/customer/orders/${orderId}/cancel`, {
         method: "PATCH", // or "POST" depending on your backend
-        credentials: "include",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+       
       });
       return await res.json();
     } catch (err) {

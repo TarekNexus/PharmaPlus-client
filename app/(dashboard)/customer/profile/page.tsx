@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState, ChangeEvent } from "react";
-import { customerService } from "@/services/customer.service";
+
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import Loader from "@/components/dashboard/Loader";
+import { getProfile } from "@/action/customer/getProfile";
+import { updateProfile } from "@/action/customer/updateProfile";
 
 interface Profile {
   name: string;
@@ -27,7 +29,7 @@ export default function ProfilePage() {
   // Fetch profile
   useEffect(() => {
     const fetchProfile = async () => {
-      const res = await customerService.getProfile();
+      const res = await getProfile();
       if (res.success) {
         setProfile(res.data);
         setPreview(res.data.image || null);
@@ -80,7 +82,7 @@ export default function ProfilePage() {
     setUpdating(true);
     const imageUrl = file ? await uploadImage() : profile.image;
 
-    const res = await customerService.updateProfile({
+    const res = await updateProfile({
       name: profile.name,
       email: profile.email,
       ...(imageUrl && { image: imageUrl }),
