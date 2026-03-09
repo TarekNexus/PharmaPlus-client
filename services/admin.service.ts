@@ -48,13 +48,15 @@ export const adminUserService = {
     }
   },
 
-  getUserById: async (id: string) => {
+  getUserById: async (id: string,cookieStore: any) => {
     try {
       const response = await fetch(
-        `${NEXT_PUBLIC_API_URL}/api/admin/users/${id}`,
-        {
-          cache: "no-store",
-          credentials: "include",
+        `${NEXT_PUBLIC_API_URL}/api/admin/users/${id}`,{
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: cookieStore.toString(),
+          },
         }
       );
 
@@ -72,7 +74,7 @@ export const adminUserService = {
   },
 
  
-  updateUserRole: async (id: string, role: string) => {
+  updateUserRole: async (id: string, role: string, cookieStore: any) => {
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/api/admin/users/${id}`,
@@ -80,8 +82,9 @@ export const adminUserService = {
           method: "PATCH", // or PUT (check backend)
           headers: {
             "Content-Type": "application/json",
+            Cookie: cookieStore.toString(),
           },
-          credentials: "include",
+
           body: JSON.stringify({ role }),
         }
       );
@@ -95,13 +98,15 @@ export const adminUserService = {
   },
 
 
-  banUser: async (id: string) => {
+  banUser: async (id: string,cookieStore: any) => {
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/api/admin/users/ban/${id}`,
         {
           method: "PATCH",
-          credentials: "include",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
         }
       );
 
@@ -114,13 +119,15 @@ export const adminUserService = {
   },
 
  
- toggleBanUser: async (id: string) => {
+ toggleBanUser: async (id: string, cookieStore: any) => {
   try {
     const res = await fetch(
       `${NEXT_PUBLIC_API_URL}/api/admin/users/ban/${id}`,
       {
         method: "PATCH",
-        credentials: "include",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
       }
     );
 

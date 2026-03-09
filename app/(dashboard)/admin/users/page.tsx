@@ -13,10 +13,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { adminUserService } from "@/services/admin.service";
 import Image from "next/image";
 import Loader from "@/components/dashboard/Loader";
-import { adminAction } from "@/action/admin";
+import { getAllUsers } from "@/action/admin/getAllUsers";
+import { updateUserRole } from "@/action/admin/updateUserRole";
+import { toggleBanUser } from "@/action/admin/toggleBanUser";
+
 
 interface User {
   id: string;
@@ -36,7 +38,7 @@ export default function AdminUsersPage() {
 
   const fetchUsers = async () => {
     setLoading(true);
-    const res = await adminAction()
+    const res = await getAllUsers()
     console.log(res);
     if (res.success) {
       setUsers(res.data);
@@ -63,7 +65,7 @@ export default function AdminUsersPage() {
 
   // 🔁 role change
   const handleRoleChange = async (id: string, role: string) => {
-    const res = await adminUserService.updateUserRole(id, role);
+    const res = await updateUserRole(id, role);
 
     if (res?.success) {
       Swal.fire({
@@ -81,7 +83,7 @@ export default function AdminUsersPage() {
 
   // 🚫 ban/unban
   const handleBanToggle = async (id: string) => {
-    const res = await adminUserService.toggleBanUser(id);
+    const res = await toggleBanUser(id);
 
     if (res?.success) {
       Swal.fire({

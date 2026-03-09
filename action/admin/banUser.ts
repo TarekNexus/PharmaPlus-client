@@ -3,10 +3,10 @@
 import { adminUserService } from "@/services/admin.service";
 import { cookies } from "next/headers";
 
-export  const adminAction = async () => {
+export  const banUser = async (id: string) => {
     const cookieStore = await cookies();
     try {
-      const res = await adminUserService.getAllUsers(cookieStore);
+      const res = await adminUserService.banUser(id, cookieStore);
       console.log(res);
       return res;
     } catch (err) {

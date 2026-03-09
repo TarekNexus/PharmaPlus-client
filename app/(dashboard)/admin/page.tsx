@@ -29,7 +29,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { adminAction } from "@/action/admin";
+
+import { getAllUsers } from "@/action/admin/getAllUsers";
 
 export default function AdminDashboard() {
   const [customersCount, setCustomersCount] = useState<number>(0);
@@ -50,7 +51,7 @@ export default function AdminDashboard() {
     try {
       const [usersRes, ordersRes, categoriesRes, medicinesRes] =
         await Promise.all([
-          adminAction(),
+          getAllUsers(),
           orderService.getAllOrders(),
           categoryService.getAllCategory(),
           medicineService.getAllMedicines(),
