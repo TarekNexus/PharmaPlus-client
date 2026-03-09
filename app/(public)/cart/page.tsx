@@ -61,7 +61,14 @@ export default function Cart() {
   );
   const deliveryFee = 100;
   const total = subtotal + deliveryFee;
+if (!mounted) return null;
+useEffect(() => {
+  const storedCart = localStorage.getItem("cart");
+  setCartItems(storedCart ? JSON.parse(storedCart) : []);
+  setMounted(true);
+}, []);
 
+if (!mounted) return null;
   return (
     <div className="bg-white">
       <Hero />
