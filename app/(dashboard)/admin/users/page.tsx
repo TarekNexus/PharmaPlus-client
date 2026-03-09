@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { adminUserService } from "@/services/admin.service";
 import Image from "next/image";
 import Loader from "@/components/dashboard/Loader";
+import { adminAction } from "@/action/admin";
 
 interface User {
   id: string;
@@ -35,7 +36,7 @@ export default function AdminUsersPage() {
 
   const fetchUsers = async () => {
     setLoading(true);
-    const res = await adminUserService.getAllUsers();
+    const res = await adminAction.getAdminData()
     if (res.success) {
       setUsers(res.data);
       setFiltered(res.data);

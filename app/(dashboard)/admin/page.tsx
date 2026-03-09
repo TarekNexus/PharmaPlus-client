@@ -15,7 +15,7 @@ import {
   Pill,
 } from "lucide-react";
 import Loader from "@/components/dashboard/Loader";
-import { adminUserService } from "@/services/admin.service";
+
 import { orderService } from "@/services/order.service";
 import { categoryService } from "@/services/category.service";
 
@@ -29,6 +29,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { adminAction } from "@/action/admin";
 
 export default function AdminDashboard() {
   const [customersCount, setCustomersCount] = useState<number>(0);
@@ -49,7 +50,7 @@ export default function AdminDashboard() {
     try {
       const [usersRes, ordersRes, categoriesRes, medicinesRes] =
         await Promise.all([
-          adminUserService.getAllUsers(),
+          adminAction.getAdminData(),
           orderService.getAllOrders(),
           categoryService.getAllCategory(),
           medicineService.getAllMedicines(),

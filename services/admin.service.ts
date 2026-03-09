@@ -1,17 +1,43 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL 
 
 export const adminUserService = {
 
-  getAllUsers: async () => {
+  // getAllUsers: async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `${NEXT_PUBLIC_API_URL}/api/admin/users`,
+  //       {
+  //         cache: "no-store",
+  //         credentials: "include", 
+  //       }
+  //     );
+
+  //     const result = await response.json();
+  //     return result; 
+  //   } catch (error) {
+  //     console.error("Error fetching users:", error);
+  //     return { success: false, message: "Failed to fetch users", data: [] };
+  //   }
+  // },
+
+  getAllUsers: async (cookieStore: any) => {
     try {
+      
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/api/admin/users`,
         {
-          cache: "no-store",
-          credentials: "include", 
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: cookieStore.toString(),
+          },
         }
+        
       );
 
       const result = await response.json();
@@ -22,7 +48,6 @@ export const adminUserService = {
     }
   },
 
-  
   getUserById: async (id: string) => {
     try {
       const response = await fetch(
