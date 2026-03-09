@@ -3,10 +3,19 @@
 
 //     baseURL: "https://pharma-plus-one.vercel.app"
 // })
+// import { createAuthClient } from "better-auth/react";
+
+// export const authClient = createAuthClient({
+//   baseURL: "https://pharma-plus-one.vercel.app",
+//   fetchOptions: {
+//     credentials: "include",
+//   },
+// });
 import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
-  baseURL: "https://pharma-plus-one.vercel.app",
+  baseURL: typeof window !== "undefined" ? window.location.origin : "",
+  basePath: "/api/auth",
   fetchOptions: {
     credentials: "include",
   },
