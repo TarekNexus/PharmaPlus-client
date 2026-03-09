@@ -65,7 +65,13 @@ export default function Cart() {
   return (
     <div className="bg-white">
       <Hero />
-<Toaster position="top-right" reverseOrder={false} />
+<Toaster
+  position="top-right"
+  reverseOrder={false}
+  toastOptions={{
+    duration: 2000, // 2 seconds পরে auto remove
+  }}
+/>
       {/* Header */}
       <div className="text-center mb-12 px-4 sm:px-6 md:px-8">
         <h1 className="text-4xl font-satoshi sm:text-5xl lg:text-5xl font-bold mb-4 text-[#FF833B]">
