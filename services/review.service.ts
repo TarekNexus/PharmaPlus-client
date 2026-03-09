@@ -1,6 +1,6 @@
-import { env } from "@/env";
 
-const NEXT_PUBLIC_API_URL = env.NEXT_PUBLIC_API_URL;
+
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export interface ReviewPayload {
   medicineId: string;
