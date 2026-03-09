@@ -4,7 +4,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { medicineService } from "@/services/medicine.service";
+
 import { reviewService, Review } from "@/services/review.service";
 import { Medicine } from "@/types";
 import { addToCart } from "@/components/order/cart";
@@ -12,6 +12,7 @@ import Loader from "@/components/dashboard/Loader";
 import toast, { Toaster } from "react-hot-toast";
 import Hero from "@/components/shop/Hero";
 import FaqSection from "@/components/home/FAQSection";
+import { getMedicineById } from "@/action/medicine/getMedicineById";
 
 const Page = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,7 +36,7 @@ const Page = () => {
 
     const fetchData = async () => {
       try {
-        const med = await medicineService.getMedicineById(id);
+        const med = await getMedicineById(id);
         setMedicine(med);
 
         const reviewData = await reviewService.getReviewsByMedicine(id);

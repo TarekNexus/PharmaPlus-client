@@ -12,6 +12,6 @@ export  const updateCategory = async (id: string, name: string) => {
       return res;
     } catch (err) {
       console.error(err);
-      return { success: false, message: "Failed to fetch admin data" };
+      return { success: false, message: "Failed to update category" };
     }
 };

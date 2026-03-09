@@ -3,11 +3,12 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-import { orderService } from "@/services/order.service"; // 🔹 import service
+ // 🔹 import service
 import Image from "next/image";
 
 import Hero from "@/components/checkout/Hero";
 import { Loader2 } from "lucide-react";
+import { placeOrder } from "@/action/order/placeOrder";
 
 interface CartItem {
   id: string;
@@ -94,7 +95,7 @@ const handlePlaceOrder = async () => {
       notes: formData.notes,
     };
 
-    await orderService.placeOrder(orderData);
+    await placeOrder(orderData);
 
     toast.success("Your PharmaPlus order has been placed!");
     localStorage.removeItem("cart");

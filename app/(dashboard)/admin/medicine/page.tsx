@@ -39,6 +39,11 @@ import { Pencil, Trash2, Plus } from "lucide-react";
 import Loader from "@/components/dashboard/Loader";
 import Image from "next/image";
 import { Medicine } from "@/types";
+import { getAllMedicines } from "@/action/medicine/getAllMedicines";
+import { getAllCategories } from "@/action/medicine/getAllCategories";
+import { createMedicine } from "@/action/medicine/createMedicine";
+import { updateMedicine } from "@/action/medicine/updateMedicine";
+import { deleteMedicine } from "@/action/medicine/deleteMedicine";
 
 type Category = {
   id: string;
@@ -86,8 +91,8 @@ export default function MedicinesPage() {
     setLoading(true);
     try {
       const [medicinesRes, categoriesData] = await Promise.all([
-        medicineService.getAllMedicines(),
-        medicineService.getAllCategories(),
+      getAllMedicines(),
+      getAllCategories(),
       ]);
       setMedicines(medicinesRes.data || []);
       setCategories(categoriesData);
@@ -146,7 +151,7 @@ export default function MedicinesPage() {
 
     setSubmitting(true);
     try {
-      await medicineService.createMedicine({ ...formData, price, stock });
+      await createMedicine({ ...formData, price, stock });
       toast.success("Medicine added successfully ");
       setIsAddDialogOpen(false);
       resetForm();
@@ -171,7 +176,7 @@ export default function MedicinesPage() {
 
     setSubmitting(true);
     try {
-      await medicineService.updateMedicine(selectedMedicine.id, {
+      await updateMedicine(selectedMedicine.id, {
         ...formData,
         price,
         stock,
@@ -193,7 +198,7 @@ export default function MedicinesPage() {
 
     setSubmitting(true);
     try {
-      await medicineService.deleteMedicine(selectedMedicine.id);
+      await deleteMedicine(selectedMedicine.id);
       toast.success("Medicine deleted successfully ");
       setIsDeleteDialogOpen(false);
       setSelectedMedicine(null);

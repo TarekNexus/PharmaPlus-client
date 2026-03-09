@@ -1,13 +1,15 @@
 "use server";
 
 
-import { categoryService } from "@/services/category.service";
+
+
+import { medicineService } from "@/services/medicine.service";
 import { cookies } from "next/headers";
 
-export  const getAllCategory = async () => {
+export  const getAllCategories = async () => {
     const cookieStore = await cookies();
     try {
-      const res = await categoryService.getAllCategory(cookieStore);
+      const res = await medicineService. getAllCategories( cookieStore);
       console.log(res);
       return res;
     } catch (err) {

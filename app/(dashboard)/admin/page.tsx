@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 
-import { medicineService } from "@/services/medicine.service";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import Loader from "@/components/dashboard/Loader";
 
-import { orderService } from "@/services/order.service";
 
 
 
@@ -32,6 +31,8 @@ import {
 
 import { getAllUsers } from "@/action/admin/getAllUsers";
 import { getAllCategory } from "@/action/category/getAllCategory";
+import { getAllOrders } from "@/action/order/getAllOrders";
+import { getAllMedicines } from "@/action/medicine/getAllMedicines";
 
 export default function AdminDashboard() {
   const [customersCount, setCustomersCount] = useState<number>(0);
@@ -53,9 +54,9 @@ export default function AdminDashboard() {
       const [usersRes, ordersRes, categoriesRes, medicinesRes] =
         await Promise.all([
           getAllUsers(),
-          orderService.getAllOrders(),
+          getAllOrders(),
           getAllCategory(),
-          medicineService.getAllMedicines(),
+         getAllMedicines(),
         ]);
 
       const users = usersRes.data || [];

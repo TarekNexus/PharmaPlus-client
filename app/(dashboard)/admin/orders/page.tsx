@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { orderService } from "@/services/order.service";
+
 import {
   Table,
   TableBody,
@@ -21,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 
 import Loader from "@/components/dashboard/Loader";
+import { updateOrderStatus } from "@/action/order/updateOrderStatus";
+import { getAllOrders } from "@/action/order/getAllOrders";
 
 // Types
 type Medicine = {
@@ -69,7 +71,7 @@ export default function OrdersPage() {
   const fetchOrders = async () => {
     setLoading(true); // show loader
     try {
-      const data = await orderService.getAllOrders();
+      const data = await getAllOrders();
       setOrders(data);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
@@ -81,7 +83,7 @@ export default function OrdersPage() {
 
   const handleStatusChange = async (orderId: string, status: string) => {
     setUpdatingId(orderId);
-    const updatedOrder = await orderService.updateOrderStatus(orderId, status);
+    const updatedOrder = await updateOrderStatus(orderId, status);
     setUpdatingId(null);
 
     if (updatedOrder) {

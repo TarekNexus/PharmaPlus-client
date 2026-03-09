@@ -13,6 +13,6 @@ export  const updateProfile = async (profileData: { name?: string; email?: strin
       return res;
     } catch (err) {
       console.error(err);
-      return { success: false, message: "Failed to fetch admin data" };
+      return { success: false, message: "Failed to update profile" };
     }
 };

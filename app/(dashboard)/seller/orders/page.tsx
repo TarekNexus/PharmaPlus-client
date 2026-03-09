@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { orderService } from "@/services/order.service";
+
 import {
   Table,
   TableBody,
@@ -22,6 +22,7 @@ import toast from "react-hot-toast";
 
 import Loader from "@/components/dashboard/Loader";
 import { sellerService } from "@/services/seller.service";
+import { updateOrderStatus } from "@/action/order/updateOrderStatus";
 
 // Types
 type Medicine = {
@@ -82,7 +83,7 @@ export default function OrdersPage() {
 
   const handleStatusChange = async (orderId: string, status: string) => {
     setUpdatingId(orderId);
-    const updatedOrder = await orderService.updateOrderStatus(orderId, status);
+    const updatedOrder = await updateOrderStatus(orderId, status);
     setUpdatingId(null);
 
     if (updatedOrder) {

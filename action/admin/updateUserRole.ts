@@ -11,6 +11,6 @@ export  const updateUserRole = async (id: string, role: string) => {
       return res;
     } catch (err) {
       console.error(err);
-      return { success: false, message: "Failed to fetch admin data" };
+      return { success: false, message: "Failed to update user role" };
     }
 };

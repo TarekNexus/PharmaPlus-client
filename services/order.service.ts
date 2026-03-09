@@ -1,15 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const orderService = {
   // Get all orders
-  getAllOrders: async () => {
+  getAllOrders: async (cookieStore: any) => {
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/orders/`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        headers: { "Content-Type": "application/json" ,
+          Cookie: cookieStore.toString(),
+        },
+        
         cache: "no-store",
       });
 
@@ -24,12 +27,14 @@ export const orderService = {
   },
 
   // Update order status
-  updateOrderStatus: async (orderId: string, status: string) => {
+  updateOrderStatus: async (orderId: string, status: string, cookieStore: any) => {
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/orders/${orderId}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        headers: { "Content-Type": "application/json" ,
+          Cookie: cookieStore.toString(),
+        },
+       
         body: JSON.stringify({ status }),
       });
 
@@ -50,13 +55,15 @@ export const orderService = {
     address: string;
     name: string;
     phone: string;
-  }) => {
+  }, cookieStore: any) => {
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/customer/orders`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+         },
         body: JSON.stringify(orderData),
-        credentials: "include",
+       
         
       });
 

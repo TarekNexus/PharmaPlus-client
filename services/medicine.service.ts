@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 
 const NEXT_PUBLIC_API_URL =  process.env.NEXT_PUBLIC_API_URL 
@@ -16,10 +18,14 @@ export type MedicineInput = {
 };
 
 export const medicineService = {
-  getAllMedicines: async () => {
+  getAllMedicines: async (cookieStore: any) => {
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/medicine/`, {
         cache: "no-store",
+        headers: {
+          
+          Cookie: cookieStore.toString(),
+        },
       });
       const data = await response.json();
       return data;
@@ -29,12 +35,16 @@ export const medicineService = {
     }
   },
 
-  getAllCategories: async () => {
+  getAllCategories: async (cookieStore: any) => {
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/api/medicine/categories/all`,
         {
           cache: "no-store",
+          headers: {
+            
+            Cookie: cookieStore.toString(),
+          },
         }
       );
       const result = await response.json();
@@ -45,10 +55,14 @@ export const medicineService = {
     }
   },
 
-  getMedicineById: async (id: string) => {
+  getMedicineById: async (id: string, cookieStore: any) => {
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/medicine/${id}`, {
         cache: "no-store",
+         headers: {
+            
+            Cookie: cookieStore.toString(),
+          },
       });
 
       const result = await response.json();
@@ -65,7 +79,7 @@ export const medicineService = {
   },
 
   // Create new medicine
-  createMedicine: async (medicineData: MedicineInput) => {
+  createMedicine: async (medicineData: MedicineInput, cookieStore: any) => {
     try {
       // Transform data to match API expectations
       const payload = {
@@ -82,8 +96,9 @@ export const medicineService = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
         },
-        credentials: "include",
+       
         body: JSON.stringify(payload),
       });
 
@@ -101,7 +116,7 @@ export const medicineService = {
   },
 
   // Update medicine
-updateMedicine: async (id: string, medicineData: MedicineInput) => {
+updateMedicine: async (id: string, medicineData: MedicineInput, cookieStore: any) => {
   try {
     const payload = {
       name: medicineData.name,
@@ -115,8 +130,10 @@ updateMedicine: async (id: string, medicineData: MedicineInput) => {
 
     const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/medicine/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",  // 
+      headers: { "Content-Type": "application/json",
+        Cookie: cookieStore.toString(),
+       },
+       // 
       body: JSON.stringify(payload),
     });
 
@@ -138,13 +155,16 @@ updateMedicine: async (id: string, medicineData: MedicineInput) => {
 
 
   // Delete medicine
-  deleteMedicine: async (id: string) => {
+  deleteMedicine: async (id: string, cookieStore: any) => {
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/api/medicine/${id}`,
         {
           method: "DELETE",
-          credentials: "include",
+           headers: {
+            
+            Cookie: cookieStore.toString(),
+          },
         }
       );
 
