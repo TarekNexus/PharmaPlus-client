@@ -3,6 +3,7 @@
 
 ---
 
+
 ## Project Overview
 PharmaPlus is a full-stack e-commerce web application designed for purchasing over-the-counter (OTC) medicines. Customers can browse medicines, add them to their cart, and place orders. Sellers manage their medicine inventory and fulfill orders, while admins oversee the platform and manage all users and listings.
 
