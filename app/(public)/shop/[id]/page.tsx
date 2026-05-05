@@ -117,11 +117,11 @@ const Page = () => {
       <Toaster position="top-right" />
 
       {/* PRODUCT SECTION */}
-      <section className="w-11/12 mx-auto mt-10 md:mt-16 mb-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 bg-[#f7dccd] rounded-3xl p-5 sm:p-8 shadow-xl border">
+      <section className="w-11/12 gap-8   mx-auto bg-[#f7dccd] rounded-3xl p-5 sm:p-8 shadow-xl border mt-10 md:mt-16 mb-10">
+        <div className="flex flex-col md:flex-row gap-8  w-9/11 mx-auto bg-[#f7dccd] rounded-3xl p-5 sm:p-8  border">
           {/* IMAGE */}
           <div className="relative group">
-            <div className="relative h-64 sm:h-80 md:h-96 lg:h-105 rounded-2xl overflow-hidden border-2 border-[#FF833B]">
+            <div className="relative md:w-80 mx-auto h-64 sm:h-80 md:h-96 lg:h-110 rounded-2xl overflow-hidden border-2 border-[#FF833B]">
               <Image
                 src={medicine.image}
                 alt={medicine.name}
@@ -136,7 +136,7 @@ const Page = () => {
           </div>
 
           {/* DETAILS */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center flex-1">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">
               <span className="text-xl md:text-3xl">Name:</span> {medicine.name}
             </h1>
