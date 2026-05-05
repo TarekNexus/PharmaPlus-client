@@ -1,5 +1,4 @@
 "use client";
-import Marquee from "react-fast-marquee";
 import {
   ArrowUp,
 } from "lucide-react";
@@ -131,21 +130,9 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="border-t border-[#FFFFFF33] pt-5"></div>
+          
 
-          <section className="mx-auto mt-10  w-full ">
-            <Marquee gradient={false} speed={90} pauseOnHover={true}>
-              {/* Repeat blocks for smooth scroll */}
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="flex items-center whitespace-nowrap  mr-8"
-                >
-                  <h3 className="font-bold text-[14vw] leading-none font-inter mr-5 md:mr-10">PHARMA PLUS</h3>
-                </div>
-              ))}
-            </Marquee>
-          </section>
+      
 
           {/* Bottom Section */}
           <div className="mt-10 border-t border-[#FFFFFF33] pt-5 flex flex-col md:flex-row items-center justify-between text-xs text-gray-200 gap-4">

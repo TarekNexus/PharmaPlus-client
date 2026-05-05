@@ -6,6 +6,7 @@ import Features from '@/components/home/Features';
 import Banner from '@/components/home/Hero';
 import Highlights from '@/components/home/Highlights';
 import MostPopular from '@/components/home/MostPopular';
+import Network from '@/components/home/Network';
 import Sticky from '@/components/home/Sticky';
 import React from 'react';
 
@@ -18,6 +19,7 @@ const page = async() => {
            <MostPopular/>
            <Sticky></Sticky>
            <Features/>
+           <Network></Network>
            <FaqSection></FaqSection>
         </div>
     );
