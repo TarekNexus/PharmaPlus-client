@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+
 type FormValues = {
   email: string;
   password: string;
@@ -17,12 +18,32 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
+    setValue, // ✅ added
     formState: { errors, isSubmitting },
   } = useForm<FormValues>();
-const [googleLoading, setGoogleLoading] = useState(false);
+
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  // ✅ autofill function
+  const fillCredentials = (role: "admin" | "customer" | "seller") => {
+    if (role === "admin") {
+      setValue("email", "admin@gmail.com");
+      setValue("password", "admin@admin");
+    }
+
+    if (role === "customer") {
+      setValue("email", "customer@gmail.com");
+      setValue("password", "customer@customer");
+    }
+
+    if (role === "seller") {
+      setValue("email", "seller@gamil.com");
+      setValue("password", "seller@seller");
+    }
+  };
+
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-   
     const loginToast = toast.loading("Logging in...");
     try {
       const { data, error } = await authClient.signIn.email(values);
@@ -36,7 +57,7 @@ const [googleLoading, setGoogleLoading] = useState(false);
       console.log("Logged in user:", data);
 
       setTimeout(() => {
-        window.location.href = "/"; 
+        window.location.href = "/";
       }, 1000);
     } catch (err: any) {
       console.error(err);
@@ -44,29 +65,26 @@ const [googleLoading, setGoogleLoading] = useState(false);
     }
   };
 
-const handleGoogleLogin = async () => {
-  setGoogleLoading(true);
-  const googleToast = toast.loading("Redirecting to Google...");
-  try {
-    const data = await authClient.signIn.social({
-      provider: "google",
-      // callbackURL: "http://localhost:3000",
-      callbackURL: "https://pharma-plus-client.vercel.app",
-    });
-    console.log(data);
-    toast.dismiss(googleToast);
-  } catch (err) {
-    console.error(err);
-    toast.error("Google login failed!", { id: googleToast });
-  } finally {
-    setGoogleLoading(false);
-  }
-};
-
+  const handleGoogleLogin = async () => {
+    setGoogleLoading(true);
+    const googleToast = toast.loading("Redirecting to Google...");
+    try {
+      const data = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "https://pharma-plus-client.vercel.app",
+      });
+      console.log(data);
+      toast.dismiss(googleToast);
+    } catch (err) {
+      console.error(err);
+      toast.error("Google login failed!", { id: googleToast });
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
 
   return (
     <section className="relative md:mb-5 md:mt-8 p-4 min-h-screen md:w-11/12 mx-auto flex items-center justify-center md:rounded-[30px] overflow-hidden shadow-[0_10px_50px_rgba(0,0,0,0.25)]">
-      {/* Toast container */}
       <Toaster position="top-right" />
 
       {/* Background */}
@@ -94,6 +112,33 @@ const handleGoogleLogin = async () => {
           Enter your credentials or use Google
         </p>
 
+        {/* ✅ Autofill Buttons */}
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          <button
+            type="button"
+            onClick={() => fillCredentials("admin")}
+            className="bg-gray-200 text-sm py-1 rounded hover:bg-gray-300"
+          >
+            Admin
+          </button>
+
+          <button
+            type="button"
+            onClick={() => fillCredentials("customer")}
+            className="bg-gray-200 text-sm py-1 rounded hover:bg-gray-300"
+          >
+            Customer
+          </button>
+
+          <button
+            type="button"
+            onClick={() => fillCredentials("seller")}
+            className="bg-gray-200 text-sm py-1 rounded hover:bg-gray-300"
+          >
+            Seller
+          </button>
+        </div>
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Email */}
           <div className="flex flex-col">
@@ -111,60 +156,37 @@ const handleGoogleLogin = async () => {
           </div>
 
           {/* Password */}
-         <div className="flex flex-col relative">
-      <label className="text-gray-700 font-inter mb-1">Password</label>
-      <input
-        type={showPassword ? "text" : "password"}
-        placeholder="********"
-        disabled={isSubmitting}
-        {...register("password", {
-          required: "Password is required",
-          minLength: { value: 6, message: "Password must be at least 6 characters" },
-        })}
-        className={`border px-4 py-2 rounded-lg w-full focus:outline-none focus:ring-2 pr-10 ${
-          errors.password ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-[#FF833B]"
-        }`}
-      />
-      {/* Show/Hide Password Icon */}
-      <button
-        type="button"
-        onClick={() => setShowPassword(!showPassword)}
-        className="absolute right-3 top-9 text-gray-400"
-      >
-        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-      </button>
-      {errors.password && (
-        <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>
-      )}
-    </div>
+          <div className="flex flex-col relative">
+            <label className="text-gray-700 font-inter mb-1">Password</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="********"
+              disabled={isSubmitting}
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 6, message: "Password must be at least 6 characters" },
+              })}
+              className={`border px-4 py-2 rounded-lg w-full focus:outline-none focus:ring-2 pr-10 ${
+                errors.password ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-[#FF833B]"
+              }`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-9 text-gray-400"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+            {errors.password && (
+              <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>
+            )}
+          </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
             className="w-full bg-[#FF833B] mt-2 text-white font-bold font-satoshi py-2 rounded-lg shadow-md hover:bg-[#ff9f61] transition-all disabled:opacity-70 flex items-center justify-center gap-2"
           >
-            {isSubmitting && (
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                ></path>
-              </svg>
-            )}
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
         </form>
