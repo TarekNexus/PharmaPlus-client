@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import FaqSection from "@/components/home/FAQSection";
 import Features from "@/components/home/Features";
