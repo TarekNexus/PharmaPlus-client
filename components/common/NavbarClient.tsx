@@ -140,7 +140,35 @@ const handleLogout = async () => {
 </li>
 
             ))}
-           
+            
+           {user?.role.toLowerCase() === "customer" && (
+              <li>
+                <Link
+                  href="/customer/profile"
+                  className={cn(
+                    "relative text-[15.63px] leading-[150%] tracking-[7%] text-black font-medium font-satoshi",
+      "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-[#FF833B] after:transition-all after:duration-300 after:ease-in-out",
+      "hover:after:w-full"
+                  )}
+                >
+                  Profile
+                </Link>
+              </li>
+            )}
+           {user?.role.toLowerCase() === "customer" && (
+              <li>
+                <Link
+                  href="/customer"
+                  className={cn(
+                    "relative text-[15.63px] leading-[150%] tracking-[7%] text-black font-medium font-satoshi",
+      "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-[#FF833B] after:transition-all after:duration-300 after:ease-in-out",
+      "hover:after:w-full"
+                  )}
+                >
+                  My Orders
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
