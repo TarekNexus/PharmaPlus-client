@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
 
@@ -86,7 +86,7 @@ export default function Network() {
              
 
               <div className="px-4 py-4 text-center">
-                <div className="mx-auto w-fit text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-[#FF7A1A] font-manrope leading-none">
+                <div className="mx-auto w-fit text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-[#FF7A1A] font-satoshi leading-none">
                   <CountUp
                     start={0}
                     end={stat.number}

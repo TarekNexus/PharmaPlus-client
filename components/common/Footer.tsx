@@ -156,11 +156,11 @@ export default function Footer() {
 
             {/* Right */}
             <div className="flex-1 flex justify-center md:justify-end gap-4">
-              <Link href="/" className="underline text-[16px]">
+              <Link href="/terms" className="underline text-[16px]">
                 Terms of Use
               </Link>
               <span>|</span>
-              <Link href="/" className="underline text-[16px]">
+              <Link href="/privacy" className="underline text-[16px]">
                 Privacy Policy
               </Link>
             </div>
