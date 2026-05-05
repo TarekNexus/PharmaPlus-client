@@ -174,9 +174,19 @@ export default function Card({ medicines, categories }: Props) {
             </Link>
           ))}
         </div>
-      ) : (
-        <div className="text-center text-gray-500 py-16">
-          <p className="text-lg font-semibold">No medicines found for these filters</p>
+      ) :(
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={i}
+              className="animate-pulse rounded-2xl border-4 border-[#FF833B] p-4 bg-white"
+            >
+              <div className="h-48 bg-gray-200 rounded-xl mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+              <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+              <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+            </div>
+          ))}
         </div>
       )}
 
