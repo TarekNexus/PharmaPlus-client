@@ -23,7 +23,7 @@ export default function Card({ medicines, categories }: Props) {
   const [minPrice, setMinPrice] = useState("0");
   const [maxPrice, setMaxPrice] = useState("1000");
 
-  const itemsPerPage = 9;
+  const itemsPerPage = 12;
 
   // Unique manufacturers
   const manufacturers = useMemo(
@@ -140,17 +140,17 @@ export default function Card({ medicines, categories }: Props) {
 
       {/* Medicines Grid */}
       {currentMedicines.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {currentMedicines.map((med) => (
             <Link key={med.id} href={`/shop/${med.id}`}>
-              <div className="group bg-white rounded-2xl overflow-hidden duration-300 shadow hover:bg-[#F7F2E9]">
-                <div className="relative h-56 overflow-hidden pt-3 px-3">
+              <div className="group  rounded-2xl overflow-hidden duration-300 shadow bg-white hover:bg-[#F7F2E9] border-4 border-[#FF833B] hover:border-[#FF833B]">
+                <div className="relative h-80 flex justify-center mx-auto w-80 overflow-hidden pt-3 px-3">
                   {med.image ? (
                     <Image
                       src={med.image.startsWith("http") ? med.image : "/" + med.image}
                       alt={med.name}
                       width={381}
-                      height={222}
+                      height={422}
                       className="w-full h-full object-cover rounded-xl"
                     />
                   ) : (
@@ -166,7 +166,7 @@ export default function Card({ medicines, categories }: Props) {
                   <p className="text-sm text-gray-600 mb-2 line-clamp-2">{med.description}</p>
                   <p className="text-sm text-gray-600 mb-4">{med.Manufacturer}</p>
                   <div className="flex justify-between items-center">
-                    <span className="text-[#FF833B] font-semibold">${med.price}</span>
+                    <span className="text-[#FF833B] text-2xl font-bold"> Price :${med.price}</span>
                     <span className="text-gray-500 font-medium">Stock: {med.stock}</span>
                   </div>
                 </div>
